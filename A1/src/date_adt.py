@@ -112,12 +112,43 @@ class DateT:
             return False
 
     def after(self, d):
-        pass
+        if d.year == self.year:
+            if d.month == self.month:
+                if d.day > self.day:
+                    return True
+                else:
+                    return False
+            elif d.month > self.month:
+                return True
+            else:
+                return False
+        elif d.year > self.year:
+            return True
+        else:
+            return False
 
     def equal(self, d):
         if d.day == self.day and d.month == self.month and d.year == self.year:
             return True
         else:
             return False
+
+    def add_days(self, n):
+        d = DateT(self.day, self.month, self.year)
+        for i in range(n):
+            d.next()
+        return d
+
+    def days_between(self, d):
+        n = 0
+        if self.before(self, d):
+            while not(self.equal(self, d)):
+                d.next()
+                n = n + 1
+        else:
+            while not(self.equal(self, d)):
+                d.prev()
+                n = n + 1
+        return n
 
 # etc.
