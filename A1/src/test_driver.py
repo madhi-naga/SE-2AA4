@@ -7,6 +7,7 @@ import unittest
 from date_adt import DateT
 from pos_adt import GPosT
 
+
 d1 = DateT(1, 1, 2020)
 d11 = DateT(1, 1, 2021)
 d2 = DateT(31, 12, 1500)
