@@ -7,7 +7,7 @@
 import math
 from date_adt import DateT
 
-## @brief The class, GPost, represents an ADT of a global coordinate
+## @brief The class, GPosT, represents an ADT of a global coordinate
 #  @details This class represents represents an ADT of a global coordinate with the ability
 #  to perform location-related calculations, utilizing the latitude and longitude
 class GPosT:
@@ -21,18 +21,18 @@ class GPosT:
         self.longitude = x
 
     ## @brief Getter method for returning latitude
-    #  @returns the latitude value
+    #  @returns The latitude value
     def lat(self):
         return self.latitude
 
     ## @brief Getter method for returning longitude
-    #  @returns the longitude value
+    #  @returns The longitude value
     def long(self):
         return self.longitude
 
     ## @brief The function calculates if the current coordinate is west of the given coordinate
-    #  @param The parameter passed through is a given coordinate, p
-    #  @returns a boolean depending on if the current coordinate is west of the given coordinate
+    #  @param p is a given coordinate.
+    #  @returns A boolean depending on if the current coordinate is west of the given coordinate
     def west_of(self, p):
         if p.long() > self.long():
             return True
@@ -40,8 +40,8 @@ class GPosT:
             return False
 
     ## @brief The function calculates if the current coordinate is north of the given coordinate
-    #  @param The parameter passed through is a given coordinate, p
-    #  @returns a boolean depending on if the current coordinate is north of the given coordinate
+    #  @param p is a given coordinate.
+    #  @returns A boolean depending on if the current coordinate is north of the given coordinate
     def north_of(self, p):
         if p.lat() < self.lat():
             return True
@@ -49,8 +49,8 @@ class GPosT:
             return False
 
     ## @brief The function calculates if the current coordinate is equal to the given coordinate
-    #  @param The parameter passed through is a given coordinate, p
-    #  @returns a boolean depending on if the current coordinate is equal to the given coordinate
+    #  @param p is a given coordinate.
+    #  @returns A boolean depending on if the current coordinate is equal to the given coordinate
     def equal(self, p):
         if p.lat() == self.lat() and p.long() == self.long():
             return True
@@ -58,7 +58,8 @@ class GPosT:
             return False
 
     ## @brief The function calculates a resultant coordinate given a certain bearing & distance
-    #  @param The parameter passed through is a given bearing (in degrees), b, and distance (in km), d.
+    #  @param b is a given bearing (in degrees).
+    #  @param d is a given distance (in km).
     def move(self, b, d):
         R = 6371
         rlat = math.radians(self.lat())
@@ -72,8 +73,8 @@ class GPosT:
         self.longitude = math.degrees(rlong2)
 
     ## @brief The function calculates the distance between the current point and another point
-    #  @param The parameter passed through is a given coordinate, p
-    #  @returns the resultant distance (in km)
+    #  @param p is a given coordinate.
+    #  @returns dist, the resultant distance (in km)
     def distance(self, p):
         R = 6371
         rlat1 = math.radians(self.lat())
@@ -88,9 +89,9 @@ class GPosT:
         return dist
 
     ## @brief The function calculates the final date based on the speed, destination point, starting date
-    #  @param The parameter passed through is the given destination coordinate, p,
+    #  @param The parameters passed through is the given destination coordinate, p,
     #  @param d is the starting date, and s is the speed in (km/day)
-    #  @returns the resultant distance (in km)
+    #  @returns d2, the resultant date
     def arrival_date(self, p, d, s):
         dist = GPosT.distance(self, p)
         days = round(dist / s)
