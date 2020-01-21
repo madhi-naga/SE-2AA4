@@ -1,4 +1,4 @@
-PY = python
+PY = python3
 PYFLAGS = 
 PYTEST = $(PY) #replace with pytest if written with pytest
 DOC = doxygen
