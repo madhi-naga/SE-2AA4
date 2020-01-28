@@ -4,6 +4,13 @@
 \usepackage{paralist}
 \usepackage{listings}
 \usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 
 \oddsidemargin 0mm
 \evensidemargin 0mm
@@ -16,7 +23,7 @@
 \newcounter{stepnum}
 
 \title{Assignment 1 Solution}
-\author{?}
+\author{Madhi Nagarajan, nagarajm}
 \date{\today}
 
 \begin {document}
@@ -26,14 +33,14 @@
 Intro blurb.
 
 \section{Testing of the Original Program}
-
-Description of approach to testing.  Rationale for test case selection.  Summary
-of results.  Any problems uncovered through testing.
+	
+	My approach to testing my program was to utilize "assert" with unittest to provide whether there were any failures or not. When testing the move and distance function, I used \url{https://www.movable-type.co.uk/scripts/latlong.html} as a basis for my test case answers. For the arrival\_date function, I first calculated the distance. I then calculate the number of days, using the distance calculated and speed (in km/days). For the final date result, used \url{https://www.timeanddate.com/date/dateadd.html}.
+\newline
+	When testing my code, I noticed that when testing functions in pos\_adt that returned decimal values, these test cases would fail unless if both numbers were equal. Since this is unreasonable and inconvenient for testing, I used "self.assertAlmostEqual" and utilized a range, in which both values can differ at max between each other.
 
 \section{Results of Testing Partner's Code}
 
-Consequences of running partner's code.  Success, or lack of success, running
-test cases.  Explanation of why it worked, or didn't.
+When testing my partner's code, all test cases, but for the "test\_arrival\_date". I noticed that in the arrival\_date of my partner's pos\_adt, she used the ceil() function.
 
 \section{Critique of Given Design Specification}
 
@@ -44,6 +51,21 @@ Advantages and disadvantages of the given design specification.
 \begin{enumerate}[(a)]
 
 \item 
+...
+
+\item 
+...
+
+\item 
+Pytest offers a more detailed explanation of where a failure occurs for test cases. The test script could use just "assert" rather than
+self.assert. While I did not use pytest, I utilized unittest (a demo of pytest) which can be used right out of the box in python. I found unittest also uses the "assert" syntax, however it does not offer an as detailed explanation for failures.
+
+\item 
+Some past examples of Software Engineering failures are NASA's Spirit Rover (shutdown because it ran out of flash memory) and the 2003 Northeast Blackout (due to a race condition) ... Software quality and high cost is still a major challenge since  
+
+\item 
+
+
 
 \end{enumerate}
 
