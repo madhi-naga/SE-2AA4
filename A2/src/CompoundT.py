@@ -1,2 +1,2 @@
 ## @file CompoundT.py
-#  @author 
+#  @author
