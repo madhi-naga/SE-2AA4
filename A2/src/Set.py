@@ -1,7 +1,9 @@
 ## @file Set.py
-#  @author 
+#  @author
+from src.Equality import Equality
 
-class Set:
+
+class Set(Equality):
 
     def __init__(self, list):
         self.T = list
@@ -10,9 +12,12 @@ class Set:
         self.T.append(e)
 
     def rm(self, e):
-        self.T.remove(e)
+        if not self.member(e):
+            raise ValueError()
+        else:
+            self.T.remove(e)
 
-    def rm(self, e):
+    def member(self, e):
         if e in self.T:
             return True
         else:
@@ -24,4 +29,11 @@ class Set:
     def to_seq(self):
         return self.T
 
-    #def equals(self, R):
+    def equals(self, R):
+        if self.T.length == R.T.length:
+            for i in range(self.T.length):
+                if self.T[i] != R.T[i]:
+                    return False
+            return True
+        else:
+            return False

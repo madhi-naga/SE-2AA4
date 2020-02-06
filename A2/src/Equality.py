@@ -1,14 +1,10 @@
 ## @file Equality.py
-#  @author 
+#  @author
+from abc import ABC, abstractmethod
 
 
-class Equality:
+class Equality(ABC):
 
+    @abstractmethod
     def equals(self, R):
-        if self.T. length == R.T.length:
-            for i in range(self.T.length):
-                if self.T[i] != R.T[i]:
-                    return False
-            return True
-         else:
-            return False
+        pass
