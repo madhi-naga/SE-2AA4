@@ -1,25 +1,34 @@
 ## @file CompoundT.py
 #  @author
-from src.ChemEntity import ChemEntity
-from src.MolecSet import MolecSet
-from src.Equality import Equality
+from ChemEntity import ChemEntity
+from ElmSet import ElmSet
+from Equality import Equality
+
 
 class CompoundT(ChemEntity, Equality):
 
     def __init__(self, M):
-        self.molec_set = M
+        self.__molec_set = M
 
     def get_molec_set(self):
-        return self.molec_set
+        return self.__molec_set
 
     def num_atoms(self, e):
-        if m in sel
+        sum = 0
+        for molec in self.__molec_set.to_seq():
+            if molec.get_elm() == e:
+                sum += molec.get_num()
+        return sum
 
     def constit_elems(self):
-        return MolecSet()
+        c_list = []
+        for m in self.__molec_set.to_seq():
+            c_list.append(m.get_elm())
+        return ElmSet(c_list)
+
 
     def equals(self, D):
-        if self.molec_set.equals(D.molec_set):
-            return True
-        else:
-            return False
+        if len(self.__molec_set.to_seq()) == len(D.__molec_set.to_seq()):
+            if all(elem in D.molec_set for elem in self.__molec_set):
+                return True
+        return False

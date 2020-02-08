@@ -1,21 +1,22 @@
 ## @file Set.py
 #  @author
-from src.Equality import Equality
+from Equality import Equality
 
 
 class Set(Equality):
 
-    def __init__(self, list):
-        self.T = list
+    def __init__(self, s):
+        self.T = s
+
+    def __eq__(self, other):
+        return self.equals(other)
 
     def add(self, e):
-        self.T.append(e)
+        if not self.member(e):
+            self.T.append(e)
 
     def rm(self, e):
-        if not self.member(e):
-            raise ValueError()
-        else:
-            self.T.remove(e)
+        self.T.remove(e)
 
     def member(self, e):
         if e in self.T:
@@ -24,16 +25,13 @@ class Set(Equality):
             return False
 
     def size(self):
-        return self.T.length
+        return len(self.T)
 
     def to_seq(self):
         return self.T
 
     def equals(self, R):
-        if self.T.length == R.T.length:
-            for i in range(self.T.length):
-                if self.T[i] != R.T[i]:
-                    return False
-            return True
-        else:
-            return False
+        if len(self.T) == len(R.T):
+            if all(elem in R.T for elem in self.T):
+                return True
+        return False

@@ -1,4 +1,4 @@
-from ChemTypes import ElementT
+from ChemTypes import *
 from Set import *
 from ElmSet import *
 from MolecSet import *
@@ -27,7 +27,7 @@ print(S == R)
 
 print(str(R.to_seq()))
 
-for i in R:
+for i in R.to_seq():
     print(i)
 
 # ElmSet Examples

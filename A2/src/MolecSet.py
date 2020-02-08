@@ -6,6 +6,6 @@ from src.Set import Set
 
 class MolecSet(Set):
 
-    def __init__(self):
-        pass
+    def __init__(self, list):
+        super().__init__(list)
 
