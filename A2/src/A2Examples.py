@@ -4,8 +4,11 @@ from ElmSet import *
 from MolecSet import *
 from MoleculeT import *
 from CompoundT import *
+from ReactionT import *
 
 # Chem Type Examples
+
+
 e1 = ElementT.H
 e2 = ElementT.He
 
@@ -49,3 +52,18 @@ print(C1.num_atoms(ElementT.H))
 e = C1.constit_elems()
 print(e.equals(ElmSet([ElementT.H, ElementT.O])))
 print(C1.equals(CompoundT(MolecSet([M1]))))
+
+# ReactionT Examples
+# H2 + O2 --> H2O
+M3 = MoleculeT(2, ElementT.H)
+M4 = MoleculeT(2, ElementT.O)
+C2 = CompoundT(MolecSet([M3]))
+C3 = CompoundT(MolecSet([M4]))
+
+M4 = MoleculeT(1, ElementT.O)
+C4 = CompoundT(MolecSet([M3, M4]))
+
+R1 = ReactionT([C2, C3], [C4])
+# default coefficients for both sides is 1
+print(R1.get_lhs_coeff())
+print(R1.get_rhs_coeff())

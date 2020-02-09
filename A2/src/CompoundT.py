@@ -21,11 +21,7 @@ class CompoundT(ChemEntity, Equality):
         return sum
 
     def constit_elems(self):
-        c_list = []
-        for m in self.__molec_set.to_seq():
-            c_list.append(m.get_elm())
-        return ElmSet(c_list)
-
+        return ElmSet([m.get_elm() for m in self.__molec_set.to_seq()])
 
     def equals(self, D):
         if len(self.__molec_set.to_seq()) == len(D.__molec_set.to_seq()):
