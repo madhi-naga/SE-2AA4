@@ -3,6 +3,14 @@
 
 from numpy import linalg
 from CompoundT import *
+from MoleculeT import *
+from Set import *
+from ElmSet import *
+
+from MolecSet import *
+
+from src.ElmSet import ElmSet
+
 
 class ReactionT:
 
@@ -11,8 +19,7 @@ class ReactionT:
         self.__rhs = R
         self.__coeff_L = [1 for i in range(len(L))]
         self.__coeff_R = [1 for i in range(len(R))]
-
-        # if elem
+        # if elem)
 
 
     def get_lhs(self):
@@ -27,24 +34,66 @@ class ReactionT:
     def get_rhs_coeff(self):
         return self.__coeff_R
 
-    def n_atoms(self, C, c, e):
+    # C is CompoundTs, c is coeff, e is elem
+    @staticmethod
+    def n_atoms(C, c, e):
         atoms = 0
         for i in range(len(C)):
             atoms += c[i] * C[i].num_atoms(e)
         return atoms
 
-    def elm_in_chem_eq(self, C):
+    @staticmethod
+    def elem_num(C, e):
+        atoms = []
+        for i in range(len(C)):
+            atoms.append(C[i].num_atoms(e))
+        return atoms
+
+    @staticmethod
+    def elm_in_chem_eq(C):
         ret = []
-        for c in C:
-            ret.append(c.constit_elem().to_seq())
-        return ret
+        for comp in C:
+            ret.append(comp.constit_elems().to_seq())
+        return Set(ret)
 
-    def is_bal_elm(self, e):
-        return self.n_atoms(self.__lhs, self.__coeff_L, e) == self.n_atoms(self.__rhs, self.__coeff_R, e)
+    def is_bal_elm(self, L, R, cL, cR, e):
+        return self.n_atoms(L, cL, e) == self.n_atoms(R, cR, e)
 
+    def is_balanced(self, L, R, cL, cR):
+        eq_elms = self.elm_in_chem_eq(L).equals(self.elm_in_chem_eq(R))
+        eq_atoms = all([self.is_bal_elm(L, R, cL, cR, elm) for elm in self.elm_in_chem_eq(R).to_seq()])
+        return eq_elms and eq_atoms
 
-    def is_balanced(self):
-        eq_elms = self.elm_in_chem_eq(1).equals(self.elm_in_chem_eq(self.))
+    def matrix(self, C):
+        comp_C = self.elm_in_chem_eq(C).to_seq()
+        mat = []
+        for comp_elms in comp_C:
+            for elm in comp_elms:
+                nums = self.elem_num(C, elm)
+                mat.append(nums)
+        return mat
 
-    def chem_balance(self):
+    def chem_balance(self, L, R):
+        comp_L = self.elm_in_chem_eq(L).to_seq()
+        comp_R = self.elm_in_chem_eq(R).to_seq()
 
+        mat_L = self.matrix(L)
+        mat_R = self.matrix(R)
+
+        total_comps = len(L) + len(R)
+
+        calc = linalg.lstsq(mat_L, mat_R)
+        print(mat_L, mat_R)
+        return calc
+
+        # for comp_elms in comp_L:
+        #     for elm in comp_elms:
+        #         nums = self.elem_num(L, elm)
+        #         row.append(nums)
+        #
+        #
+        # # for comp in L:
+        # #     for mol in comp.get_molec_set().to_seq():
+        # #         numlist.append(mol.get_num())
+        #
+        # return row

@@ -43,6 +43,7 @@ M1 = MoleculeT(2, ElementT.H)
 M2 = MoleculeT(7, ElementT.O)
 print(M1.num_atoms(ElementT.C))
 print(M1.constit_elems() == ElmSet([ElementT.H]))
+print(M1.constit_elems().to_seq())
 print(M1.equals(M2))
 print(M1 == M2)
 
@@ -50,6 +51,7 @@ print(M1 == M2)
 C1 = CompoundT(MolecSet([M1, M2]))
 print(C1.num_atoms(ElementT.H))
 e = C1.constit_elems()
+print(e.to_seq())
 print(e.equals(ElmSet([ElementT.H, ElementT.O])))
 print(C1.equals(CompoundT(MolecSet([M1]))))
 
@@ -67,3 +69,8 @@ R1 = ReactionT([C2, C3], [C4])
 # default coefficients for both sides is 1
 print(R1.get_lhs_coeff())
 print(R1.get_rhs_coeff())
+e1 = R1.elm_in_chem_eq(R1.get_lhs())
+e2 = R1.elm_in_chem_eq(R1.get_rhs())
+print(R1.chem_balance(R1.get_lhs(), R1.get_rhs()))
+
+
