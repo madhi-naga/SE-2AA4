@@ -1,6 +1,6 @@
 ## @file ReactionT.py
 #  @author
-
+import numpy
 from numpy import linalg
 from CompoundT import *
 from MoleculeT import *
@@ -64,6 +64,24 @@ class ReactionT:
         eq_atoms = all([self.is_bal_elm(L, R, cL, cR, elm) for elm in self.elm_in_chem_eq(R).to_seq()])
         return eq_elms and eq_atoms
 
+    # def matrix(self, L, R):
+    #     comp_L = self.elm_in_chem_eq(L).to_seq()
+    #     comp_R = self.elm_in_chem_eq(R).to_seq()
+    #     comp_C = comp_L + comp_R
+    #
+    #     mat = []
+    #     for comp_elms in comp_C[0]:
+    #         for elm in comp_elms:
+    #             nums = self.elem_num(L, elm)
+    #             mat.append(nums)
+    #     i = 0
+    #     for comp_elms in comp_R:
+    #         for elm in comp_elms:
+    #             nums = self.elem_num(R, elm)
+    #             mat.append(-1*nums)
+    #             i += 1
+    #     return mat
+
     def matrix(self, C):
         comp_C = self.elm_in_chem_eq(C).to_seq()
         mat = []
@@ -74,17 +92,30 @@ class ReactionT:
         return mat
 
     def chem_balance(self, L, R):
-        comp_L = self.elm_in_chem_eq(L).to_seq()
-        comp_R = self.elm_in_chem_eq(R).to_seq()
+        mat1 = self.matrix(L)
+        mat2 = self.matrix(R)
 
-        mat_L = self.matrix(L)
-        mat_R = self.matrix(R)
+        mat = []
+        for i in range(len(mat1)):
+            neg = [-x for x in mat2[i]]
+            mat.append(mat1[i] + neg)
+        mat.append([0 for i in range(len(L) + len(R) - 1)])
+        mat[-1].append(1)
 
-        total_comps = len(L) + len(R)
+        mat_B = [[0] for i in range(len(mat) - 1)]
+        mat_B.append([1])
+        # print(mat, mat_B)
+        calc = linalg.lstsq(mat, mat_B)[0].tolist()
 
-        calc = linalg.lstsq(mat_L, mat_R)
-        print(mat_L, mat_R)
-        return calc
+        co_L = []
+        co_R = []
+        for i in range(len(calc)):
+            if i < len(mat1):
+                co_L.append(calc[i][0])
+            else:
+                co_R.append(calc[i][0])
+
+        return [co_L, co_R]
 
         # for comp_elms in comp_L:
         #     for elm in comp_elms:
