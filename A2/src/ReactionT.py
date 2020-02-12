@@ -1,5 +1,9 @@
 ## @file ReactionT.py
-#  @author
+#  @title ReactionT
+#  @author Madhi Nagarajan
+#  @brief This file acts as a data type for any Reaction.
+#  @date Feburary 12, 2020
+
 
 from numpy import linalg
 from CompoundT import *
@@ -10,11 +14,17 @@ from MolecSet import *
 
 from src.ElmSet import ElmSet
 
-
+## @brief The class, ReactionT, represents a data type for Reactions
+#  @details The class, ReactionT, represents a data type for Reactions and does chemical reaction related operations
 class ReactionT:
 
-    def __init__(self, L, R):
 
+    ## @brief Constructor for ReactionT; fills out left-hand and right
+    #  @details Constructor accepts two parameters, lhs and rhs. It fills out left-hand and right-hand
+    # sides of the Reaction, as well as filling out the correct LHS and RHS coefficients.
+    #  @param L is a list/Set of Compounds of all LHS compounds in the reaction
+    #  @param R is a list/Set of Compounds of all RHS compounds in the reaction
+    def __init__(self, L, R):
         self.__lhs = L
         self.__rhs = R
 
@@ -26,17 +36,26 @@ class ReactionT:
         #         and self.pos(coeffs[1])):
         #     raise ValueError('Unbalanced/invalid coefficients')
 
+    ## @brief The function returns the LHS constructor of ReactionT
+    #  @returns a list of LHS compounds
     def get_lhs(self):
         return self.__lhs
 
+    ## @brief The function returns the RHS constructor of ReactionT
+    #  @returns a list of RHS compounds
     def get_rhs(self):
         return self.__rhs
 
+    ## @brief The function returns the LHS coefficient constructor of ReactionT
+    #  @returns a list of LHS coefficients for all LHS compounds
     def get_lhs_coeff(self):
         return self.__coeff_L
 
+    ## @brief The function returns the RHS coefficient constructor of ReactionT
+    #  @returns a list of RHS coefficients for all RHS compounds
     def get_rhs_coeff(self):
         return self.__coeff_R
+
 
     @staticmethod
     def pos(s):

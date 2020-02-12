@@ -1,8 +1,13 @@
 ## @file ChemTypes.py
-#  @author 
+#  @title ChemTypes
+#  @author Madhi Nagarajan
+#  @brief This file acts as an enum class for all periodic elements.
+#  @date February 12, 2020
 from enum import Enum, auto
 
-
+## @brief The class, ChemTypes, represents an enum class for all periodic elements.
+#  @details The class, CompoundT, represents an enum class for all periodic elements
+# for other classes to utilize.
 class ElementT(Enum):
     H = auto()
     He = auto()
