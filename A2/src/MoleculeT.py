@@ -20,6 +20,9 @@ class MoleculeT(ChemEntity, Equality):
         self.__elm = e
         self.__num = n
 
+    def __eq__(self, other):
+        return self.equals(other)
+
     ## @brief The function returns the elem constructor of MoleculeT
     #  @returns the element the molecule is made of
     def get_elm(self):

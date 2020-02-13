@@ -12,7 +12,6 @@ from Set import *
 from ElmSet import *
 from MolecSet import *
 
-from src.ElmSet import ElmSet
 
 ## @brief The class, ReactionT, represents a data type for Reactions
 #  @details The class, ReactionT, represents a data type for Reactions and does chemical reaction related operations
@@ -130,7 +129,7 @@ class ReactionT:
     def is_balanced(self, L, R, cL, cR):
         eq_elms = self.elm_in_chem_eq(L).equals(self.elm_in_chem_eq(R))
         eq_atoms = all([self.is_bal_elm(L, R, cL, cR, elm) for elm in self.elm_in_chem_eq(R).to_seq()])
-        return eq_atoms and eq_elms
+        return eq_atoms
 
     ## @brief The function forms a matrix of a given side
     #  @param C is a set of CompoundTs, either LHS or RHS
@@ -163,7 +162,6 @@ class ReactionT:
         mat_B = [[0] for i in range(len(mat) - 1)]
         mat_B.append([1])
         calc = linalg.lstsq(mat, mat_B)[0].tolist()
-        print((mat, mat_B))
         co_L = []
         co_R = []
         for i in range(len(calc)):

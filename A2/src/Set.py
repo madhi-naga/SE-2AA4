@@ -17,6 +17,7 @@ class Set(Equality):
         self.T = s
 
     def __eq__(self, other):
+
         return self.equals(other)
 
     ## @brief The function adds a new value to the Set
@@ -30,7 +31,8 @@ class Set(Equality):
     #  @param e is the value being removed
     #  @returns the Set after removing the value.
     def rm(self, e):
-        self.T.remove(e)
+        if self.member(e):
+            self.T.remove(e)
 
     ## @brief The function checks if a value is in the Set
     #  @param e is the value being checked
@@ -56,6 +58,6 @@ class Set(Equality):
     #  @returns a boolean depending on if both sets equal
     def equals(self, R):
         if len(self.T) == len(R.T):
-            if all(elem in R.T for elem in self.T):
+            if all(elem in R.to_seq() for elem in self.to_seq()):
                 return True
         return False
