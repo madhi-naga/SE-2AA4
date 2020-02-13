@@ -4,6 +4,8 @@
 #  @brief This file acts as a subclass of set
 #  @date Feburary 12, 2020
 
+from Set import *
+
 ## @brief The class, MolecSet, represents a subclass of set, for all Molecule Sets
 #  @details ElemSet inherits all the common methods of Set.py, but acts as a set for only Molecules
 class MolecSet(Set):

@@ -32,9 +32,9 @@ class ReactionT:
         self.__coeff_L = coeffs[0]
         self.__coeff_R = coeffs[1]
 
-        # if not (self.is_balanced(L, R, coeffs[0], coeffs[1]) and self.pos(coeffs[0])
-        #         and self.pos(coeffs[1])):
-        #     raise ValueError('Unbalanced/invalid coefficients')
+        if not (self.is_balanced(L, R, coeffs[0], coeffs[1]) and self.pos(coeffs[0])
+                and self.pos(coeffs[1])):
+            raise ValueError('Unbalanced/invalid coefficients')
 
     ## @brief The function returns the LHS constructor of ReactionT
     #  @returns a list of LHS compounds
@@ -56,7 +56,9 @@ class ReactionT:
     def get_rhs_coeff(self):
         return self.__coeff_R
 
-
+    ## @brief The function checks if all elements of a Set are positive
+    #  @param s is the Set
+    #  @returns a boolean value
     @staticmethod
     def pos(s):
         for i in s:
@@ -64,7 +66,11 @@ class ReactionT:
                 return False
         return True
 
-    # C is CompoundTs, c is coeff, e is elem
+    ## @brief The function finds the number of atoms in a compound
+    #  @param C os a set of CompoundT
+    #  @param c is a set of natural numbers
+    #  @param e is a given element of type ElementT
+    #  @returns the total number of atoms
     @staticmethod
     def n_atoms(C, c, e):
         atoms = 0
@@ -72,6 +78,10 @@ class ReactionT:
             atoms += c[i] * C[i].num_atoms(e)
         return atoms
 
+    ## @brief The function finds the number of ...
+    #  @param C os a set of CompoundT
+    #  @param e is a given element of type ElementT
+    #  @returns the total number of atoms
     @staticmethod
     def elem_num(C, e):
         atoms = []
@@ -79,12 +89,17 @@ class ReactionT:
             atoms.append(C[i].num_atoms(e))
         return atoms
 
+
+    ## @brief The function finds all the ElementTs in a CompoundT set
+    #  @param C os a set of CompoundT
+    #  @returns a set of these elements
     @staticmethod
     def elm_in_chem_eq(C):
         ret = []
         for comp in C:
             ret.append(comp.constit_elems().to_seq())
         return Set(ret)
+
 
     @staticmethod
     def elm_in_chem_eq_2(C):
@@ -96,37 +111,44 @@ class ReactionT:
             ret.add(elm)
         return Set(ret)
 
+    ## @brief The function checks if the number of atoms of an ElementT are the same on both LHS and RHS
+    #  @param L is a LHS set of CompoundT
+    #  @param R is a RHS set of CompoundT
+    #  @param L is a LHS set of balancing coefficients
+    #  @param R is a RHS set of balancing coefficients
+    #  @param e is a given element of type ElementT
+    #  @returns a set of these elements
     def is_bal_elm(self, L, R, cL, cR, e):
         return self.n_atoms(L, cL, e) == self.n_atoms(R, cR, e)
 
+    ## @brief The function checks if the LHS and RHS are balanced
+    #  @param L is a LHS set of CompoundT
+    #  @param R is a RHS set of CompoundT
+    #  @param L is a LHS set of balancing coefficients
+    #  @param R is a RHS set of balancing coefficients
+    #  @returns a set of these elements
     def is_balanced(self, L, R, cL, cR):
-        # eq_elms = self.elm_in_chem_eq(L).equals(self.elm_in_chem_eq(R))
+        eq_elms = self.elm_in_chem_eq(L).equals(self.elm_in_chem_eq(R))
         eq_atoms = all([self.is_bal_elm(L, R, cL, cR, elm) for elm in self.elm_in_chem_eq(R).to_seq()])
-        return eq_atoms
+        return eq_atoms and eq_elms
 
+    ## @brief The function forms a matrix of a given side
+    #  @param C is a set of CompoundTs, either LHS or RHS
+    #  @returns a list/2D matrix
     def matrix(self, C):
         comp_C = self.elm_in_chem_eq(C).to_seq()
         comp_C2 = self.elm_in_chem_eq_2(C).to_seq()
         mat = []
-        for comp_elms, comp in comp_C:
+        for comp_elms in comp_C:
             for elm in comp_elms:
                 nums = self.elem_num(C, elm)
                 mat.append(nums)
-        # for comp_elms in comp_C:
-        #     for elm in comp_elms:
-        #         nums = self.elem_num(C, elm)
-        #         mat.append(nums)
-        # return mat
-        #
-        # for col, compound in enumerate(lhs_compounds):
-        #     for el, num in compound.items():
-        #         row = els_index[el]
-        #         A[row][col] = num
-        # for col, compound in enumerate(rhs_compounds, len(lhs_compounds)):
-        #     for el, num in compound.items():
-        #         row = els_index[el]
-        #         A[row][col] = -num
+        return mat
 
+    ## @brief The function balances the chemical reaction utilizing numpy
+    #  @param L is a LHS set of CompoundT
+    #  @param R is a RHS set of CompoundT
+    #  @returns a list containing both LHS and RHS coefficients
     def chem_balance(self, L, R):
         mat1 = self.matrix(L)
         mat2 = self.matrix(R)

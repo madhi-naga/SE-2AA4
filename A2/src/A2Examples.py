@@ -65,31 +65,31 @@ C3 = CompoundT(MolecSet([M4]))
 M4 = MoleculeT(1, ElementT.O)
 C4 = CompoundT(MolecSet([M3, M4]))
 
-# R1 = ReactionT([C2, C3], [C4])
-# # default coefficients for both sides is 1
-# print(R1.get_lhs_coeff())
-# print(R1.get_rhs_coeff())
-# e1 = R1.elm_in_chem_eq(R1.get_lhs())
-# e2 = R1.elm_in_chem_eq(R1.get_rhs())
-# print(R1.chem_balance(R1.get_lhs(), R1.get_rhs()))
-#
-# M4 = MoleculeT(1, ElementT.O)
-# M5 = MoleculeT(1, ElementT.Mg)
-# M6 = MoleculeT(2, ElementT.O)
-# M7 = MoleculeT(2, ElementT.H)
-#
-# C5 = CompoundT(MolecSet([M5, M6, M7]))
-# C6 = CompoundT(MolecSet([M5, M4]))
-# C7 = CompoundT(MolecSet([M7, M4]))
-# R2 = ReactionT([C5], [C6, C7])
-# print(R2.chem_balance(R2.get_lhs(), R2.get_rhs()))
-#
-# M8 = MoleculeT(1, ElementT.N)
-# M9 = MoleculeT(2, ElementT.N)
-# C8 = CompoundT(MolecSet([M8]))
-# C9 = CompoundT(MolecSet([M9]))
-# R3 = ReactionT([C8], [C9])
-# print(R3.chem_balance(R3.get_lhs(), R3.get_rhs()))
+R1 = ReactionT([C2, C3], [C4])
+
+print(R1.get_lhs_coeff())
+print(R1.get_rhs_coeff())
+e1 = R1.elm_in_chem_eq(R1.get_lhs())
+e2 = R1.elm_in_chem_eq(R1.get_rhs())
+print(R1.chem_balance(R1.get_lhs(), R1.get_rhs()))
+
+M4 = MoleculeT(1, ElementT.O)
+M5 = MoleculeT(1, ElementT.Mg)
+M6 = MoleculeT(2, ElementT.O)
+M7 = MoleculeT(2, ElementT.H)
+
+C5 = CompoundT(MolecSet([M5, M6, M7]))
+C6 = CompoundT(MolecSet([M5, M4]))
+C7 = CompoundT(MolecSet([M7, M4]))
+R2 = ReactionT([C5], [C6, C7])
+print(R2.chem_balance(R2.get_lhs(), R2.get_rhs()))
+
+M8 = MoleculeT(1, ElementT.N)
+M9 = MoleculeT(2, ElementT.N)
+C8 = CompoundT(MolecSet([M8]))
+C9 = CompoundT(MolecSet([M9]))
+R3 = ReactionT([C8], [C9])
+print(R3.chem_balance(R3.get_lhs(), R3.get_rhs()))
 
 M8 = MoleculeT(1, ElementT.Cu)
 M9 = MoleculeT(2, ElementT.N)
@@ -97,9 +97,9 @@ M10 = MoleculeT(6, ElementT.O)
 M11 = MoleculeT(1, ElementT.O)
 M12 = MoleculeT(2, ElementT.O)
 M13 = MoleculeT(1, ElementT.N)
-C8 = CompoundT(MolecSet([M8, M9, M10])) # CuN2O6
-C9 = CompoundT(MolecSet([M8, M11])) # CuO
-C10 = CompoundT(MolecSet([M13, M12])) # NO2
-C11 = CompoundT(MolecSet([M12])) # O2
+C8 = CompoundT(MolecSet([M8, M9, M10]))  # CuN2O6
+C9 = CompoundT(MolecSet([M8, M11]))  # CuO
+C10 = CompoundT(MolecSet([M13, M12]))  # NO2
+C11 = CompoundT(MolecSet([M12]))  # O2
 R4 = ReactionT([C8], [C9, C10, C11])
 print(R4.chem_balance(R4.get_lhs(), R4.get_rhs()))
