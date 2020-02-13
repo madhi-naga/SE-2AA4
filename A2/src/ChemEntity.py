@@ -5,10 +5,10 @@
 #  @date February 12, 2020
 from abc import abstractmethod, ABC
 
-from ChemTypes import *
 
 ## @brief The class, ChemEntity, represents an abstract class
-#  @details The class, ChemEntity, represents an abstract class which other classes utilize its methods
+#  @details The class, ChemEntity, represents an abstract class which other classes
+#  utilize its methods
 class ChemEntity(ABC):
 
     ## @brief The function is an abstract method

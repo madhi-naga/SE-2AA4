@@ -6,6 +6,7 @@
 
 from Equality import Equality
 
+
 ## @brief The class, Set, represents a data type for all Sets
 #  @details The class, Set, represents a data type for all Sets and does related operations
 class Set(Equality):

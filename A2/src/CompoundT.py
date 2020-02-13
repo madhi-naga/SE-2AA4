@@ -1,7 +1,8 @@
 ## @file CompoundT.py
 #  @title CompoundT
 #  @author Madhi Nagarajan
-#  @brief This file acts as a data type for any Compound. It inherits from the ChemEntity and Equality class.
+#  @brief This file acts as a data type for any Compound. It inherits from the
+#  ChemEntity and Equality class.
 #  @date February 12, 2020
 
 from ChemEntity import ChemEntity
@@ -10,7 +11,8 @@ from Equality import Equality
 
 
 ## @brief The class, CompoundT, represents a data type for Compounds
-#  @details The class, CompoundT, represents a data type for Compounds and does related operations
+#  @details The class, CompoundT, represents a data type for Compounds
+#  and does related operations
 class CompoundT(ChemEntity, Equality):
 
     ## @brief Constructor for CompoundT
@@ -41,7 +43,8 @@ class CompoundT(ChemEntity, Equality):
 
     ## @brief The function checks if this CompoundT equals another.
     #  @param D is a given CompoundT
-    #  @returns A boolean depending on if the current CompoundT is equal to the given CompoundT
+    #  @returns A boolean depending on if the current CompoundT is equal to the
+    #  given CompoundT
     def equals(self, D):
         if len(self.__molec_set.to_seq()) == len(D.__molec_set.to_seq()):
             if all(elem in D.molec_set for elem in self.__molec_set):

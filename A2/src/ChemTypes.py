@@ -5,6 +5,7 @@
 #  @date February 12, 2020
 from enum import Enum, auto
 
+
 ## @brief The class, ChemTypes, represents an enum class for all periodic elements.
 #  @details The class, CompoundT, represents an enum class for all periodic elements
 # for other classes to utilize.

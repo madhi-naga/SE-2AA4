@@ -4,7 +4,6 @@
 #  @brief This file is the test class
 #  @date Feburary 12, 2020
 
-import pytest
 from CompoundT import *
 from MoleculeT import *
 from Set import *
@@ -74,7 +73,6 @@ class Test_All:
     def test_MoleculeT_num_atoms(self):
         assert self.m1.num_atoms(ElementT.H) == 2
         assert self.m2.num_atoms(ElementT.C) == 0
-
 
     def test_MoleculeT_constit_elems(self):
         assert self.m1.constit_elems().to_seq() == [ElementT.H]

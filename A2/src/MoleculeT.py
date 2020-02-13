@@ -1,15 +1,18 @@
 ## @file MoleculeT.py
 #  @title MoleculeT
 #  @author Madhi Nagarajan
-#  @brief This file acts as a data type for any Molecule. It inherits from the ChemEntity and Equality class.
+#  @brief This file acts as a data type for any Molecule. It inherits
+#  from the ChemEntity and Equality class.
 #  @date Feburary 12, 2020
 
 from ChemEntity import *
 from Equality import Equality
 from ElmSet import *
 
+
 ## @brief The class, MoleculeT, represents a data type for Molecules
-#  @details The class, MoleculeT, represents a data type for Molecules and does related operations
+#  @details The class, MoleculeT, represents a data type for Molecules
+#  and does related operations
 class MoleculeT(ChemEntity, Equality):
 
     ## @brief Constructor for MoleculeT
@@ -49,10 +52,10 @@ class MoleculeT(ChemEntity, Equality):
 
     ## @brief The function checks if this MoleculeT equals another.
     #  @param m is a given MoleculeT
-    #  @returns A boolean depending on if the current MoleculeT is equal to the given MoleculeT
+    #  @returns A boolean depending on if the current MoleculeT is equal
+    #  to the given MoleculeT
     def equals(self, m):
         if self.__num == m.__num and self.__elm == m.__elm:
             return True
         else:
             return False
-

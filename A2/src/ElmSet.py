@@ -5,8 +5,10 @@
 #  @date Feburary 12, 2020
 from Set import *
 
+
 ## @brief The class, ElemSet, represents a subclass of set, for all Element Sets
-#  @details ElemSet inherits all the common methods of Set.py, but acts as a set for only elements.
+#  @details ElemSet inherits all the common methods of Set.py, but acts
+#  as a set for only elements.
 class ElmSet(Set):
 
     ## @brief Constructor for ElmSet; inherits from Set

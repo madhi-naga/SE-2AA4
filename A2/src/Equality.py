@@ -5,8 +5,10 @@
 #  @date February 12, 2020
 from abc import ABC, abstractmethod
 
+
 ## @brief The class, Equality, represents an abstract class
-#  @details The class, Equality, represents an abstract class which other classes utilize its methods
+#  @details The class, Equality, represents an abstract class which other classes
+#  utilize its methods
 class Equality(ABC):
 
     ## @brief The function is an abstract method

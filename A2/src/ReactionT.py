@@ -14,13 +14,15 @@ from MolecSet import *
 
 
 ## @brief The class, ReactionT, represents a data type for Reactions
-#  @details The class, ReactionT, represents a data type for Reactions and does chemical reaction related operations
+#  @details The class, ReactionT, represents a data type for Reactions and
+#  does chemical reaction related operations
 class ReactionT:
 
-
     ## @brief Constructor for ReactionT; fills out left-hand and right
-    #  @details Constructor accepts two parameters, lhs and rhs. It fills out left-hand and right-hand
-    # sides of the Reaction, as well as filling out the correct LHS and RHS coefficients.
+    #  @details Constructor accepts two parameters, lhs and rhs. It fills out
+    #  left-hand and right-hand
+    # sides of the Reaction, as well as filling out the correct
+    # LHS and RHS coefficients.
     #  @param L is a list/Set of Compounds of all LHS compounds in the reaction
     #  @param R is a list/Set of Compounds of all RHS compounds in the reaction
     def __init__(self, L, R):
@@ -31,8 +33,8 @@ class ReactionT:
         self.__coeff_L = coeffs[0]
         self.__coeff_R = coeffs[1]
 
-        if not (self.is_balanced(L, R, coeffs[0], coeffs[1]) and self.pos(coeffs[0])
-                and self.pos(coeffs[1])):
+        if not (self.is_balanced(L, R, coeffs[0], coeffs[1]) and self.pos(
+                coeffs[0]) and self.pos(coeffs[1])):
             raise ValueError('Unbalanced/invalid coefficients')
 
     ## @brief The function returns the LHS constructor of ReactionT
@@ -88,7 +90,6 @@ class ReactionT:
             atoms.append(C[i].num_atoms(e))
         return atoms
 
-
     ## @brief The function finds all the ElementTs in a CompoundT set
     #  @param C os a set of CompoundT
     #  @returns a set of these elements
@@ -98,7 +99,6 @@ class ReactionT:
         for comp in C:
             ret.append(comp.constit_elems().to_seq())
         return Set(ret)
-
 
     @staticmethod
     def elm_in_chem_eq_2(C):
@@ -110,7 +110,8 @@ class ReactionT:
             ret.add(elm)
         return Set(ret)
 
-    ## @brief The function checks if the number of atoms of an ElementT are the same on both LHS and RHS
+    ## @brief The function checks if the number of atoms of
+    # an ElementT are the same on both LHS and RHS
     #  @param L is a LHS set of CompoundT
     #  @param R is a RHS set of CompoundT
     #  @param L is a LHS set of balancing coefficients
@@ -127,8 +128,8 @@ class ReactionT:
     #  @param R is a RHS set of balancing coefficients
     #  @returns a set of these elements
     def is_balanced(self, L, R, cL, cR):
-        eq_elms = self.elm_in_chem_eq(L).equals(self.elm_in_chem_eq(R))
-        eq_atoms = all([self.is_bal_elm(L, R, cL, cR, elm) for elm in self.elm_in_chem_eq(R).to_seq()])
+        eq_atoms = all([self.is_bal_elm(L, R, cL, cR, elm)
+                        for elm in self.elm_in_chem_eq(R).to_seq()])
         return eq_atoms
 
     ## @brief The function forms a matrix of a given side
@@ -136,7 +137,6 @@ class ReactionT:
     #  @returns a list/2D matrix
     def matrix(self, C):
         comp_C = self.elm_in_chem_eq(C).to_seq()
-        comp_C2 = self.elm_in_chem_eq_2(C).to_seq()
         mat = []
         for comp_elms in comp_C:
             for elm in comp_elms:
