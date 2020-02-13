@@ -100,16 +100,6 @@ class ReactionT:
             ret.append(comp.constit_elems().to_seq())
         return Set(ret)
 
-    @staticmethod
-    def elm_in_chem_eq_2(C):
-        elms = []
-        for comp in C:
-            elms.append(comp.constit_elems().to_seq())
-        ret = Set([])
-        for elm in elms:
-            ret.add(elm)
-        return Set(ret)
-
     ## @brief The function checks if the number of atoms of
     # an ElementT are the same on both LHS and RHS
     #  @param L is a LHS set of CompoundT
