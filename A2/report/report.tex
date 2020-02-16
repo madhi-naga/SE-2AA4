@@ -5,6 +5,18 @@
 \usepackage{listings}
 \usepackage{booktabs}
 
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
 \oddsidemargin 0mm
 \evensidemargin 0mm
 \textwidth 160mm
@@ -27,11 +39,21 @@ This purpose of this assignment is based on creating a program for that handles 
 and has the ability to mathematically form molecules (MoleculeT), compounds (CompoundT), and balance chemical reactions (ReactionT). Testing and formatting of these classes were also done, utilizing pytest and flake8, to verify our personal code and our partner's code.
 
 \section{Testing of the Original Program}
-
+The test cases made for Test\_All were based on either reasonable or boundary value inputs. For the ReactionT test cases, they were based on various reactions from \url{https://www.nayuki.io/page/chemical-equation-balancer-javascript}. When testing my program, I received 16 (all) passes. However, I had 16 warnings relating to when using linalg and rcond when calculating the coefficients.
 
 \section{Results of Testing Partner's Code}
+When originally running pytest for my partner's code, it actually failed due to errors in ReactionT. When calling a function, he forgot to add self when calling \_\_elm\_in\_chem\_eq. He also forgot to declare variable 'a'.
+\newline 
+Once these errors were fixed, I ran pytest again. This time, the results showed 8 passes and 8 failures. When looking over the failed cases, most were related to checking whether a ElmSet/MolecSet were equivalent (in value) to each other. I realized that in my code, I add the \_\_eq\_\_ function in the Set class, thus assertions with '==' would automatically redirect these cases to the 'equals' function in Set. However, my partner did not use \_\_eq\_\_, thus '==' was checking whether the Sets were memory equivalent. \newline 
+One thing to mention is that my test case selection was flawed for test\_Set\_to\_seq, as '==' checked if both Sets (in list format) were equivalent at each index. I did not realized this with my test cases for my own code. I rectified the error by converting the lists to the built-in python set datatype. \newline
+In addition, one of the test cases for my partner's code failed when trying to remove (rm function) a value from a Set where it does not exist.The reason was that a ValueError occured, as his rm function raised that error. I actually realized that in my own code, I forgot to raise a ValueError exception when this happens. Instead, my code simply does not perform the rm operation for invalid elements in a Set. \newline
+Once all these errors were fixed, I ran pytest again and it showed two failures, for test\_ReactionT\_get\_lhs\_coeff and for test\_ReactionT\_get\_rhs\_coeff. This was because my partner did not implement code for balancing coefficients in ReactionT. \newline \newline
+I found this assignment to be more difficult to produce accurate and valid test cases, as there were alot of functions and classes to keep track of. Also due to the fact that it's not as a straightforward to evaluate whether two Sets are equal.
 
 \section{Critique of Given Design Specification}
+Personally, I found the MIS formal specification for Assignment 2 made it straightforward to know exactly what parameters and the expected output should produce. However, I thought that when creating the program, it made it especially difficult to understand exactly what the required requirements and the objective of the program/certain classes. For example, I was confused on why we need two different modules (MoleculeT and CompoundT) to create a certain molecule/compound. After learning some background knowledge about molecules and compounds, it made more sense on why we need both. \newline This made me realize that not having adequate background knowledge on the topic you're developing a program for makes it very difficult especially with a formal specification. With A1 being less formal, it helped to explain and clear most doubts on exactly what the program is doing or its objective. The MIS specification was also very restrictive and not flexible for the most part. There were times where I wished I was able to implement a new function or class, especially relating to ReactionT, but would go against the requirements of the specification.
+\newline
+I found developing ReactionT was quite difficult, as there were alot of other functions and classes to consider and keep track of. The challenging part was creating the matricies for coefficient calculations. I had trouble trying to figure out a method to obtain all the elements and atoms for all compounds on both sides and creating coefficient equations for each element.  
 
 \section{Answers}
 
@@ -43,13 +65,13 @@ With the natural language of A1, it was much easier to understand what the purpo
 This is where a formal specification has its advantages. It clearly describes the parameters and output of the program. However one such feature it's lacking is that it is not very descriptive. I found that this assignment was somewhat difficult to understand the purpose of certain functions/code or how it can utilized by other classes. Furthermore, the specification can be somewhat restrictive of what the developer can do since it specifies how exactly the function/class should be designed.   
 
 \item
-
-
+To collect and convert strings to an object type, I would use the eval() function in python. I would use a generic module, which its purpose is to collect a stack of strings. Then, I would convert the strings to ADT type like ElementT. 
 
 \item
 I would change the current ChemTypes class to a store a list for each enum, containing both it's atomic number and atomic mass (eg. H = [1.01, 1]). We can then have a constructor (get\_mass()) that returns an element's atomic mass. For MoleculeT, a mass constructor can be used again, but this time it multiplies the number of atoms with the atomic mass. For CompoundT, it would take the sum of all MoleculeT masses in its compound.
 
 \item
+Numpy provides the coefficients in real numbers. However the actual conventions in chemistry is commonly natural numbers, as its not possible to have fractions of real molecules. With the real number coefficients, it's quite simple to develop an algorithm that converts these fractions to whole numbers. We'd want to multiply the coefficients by the inverse of the lowest coefficient value, as characterized in \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1028.5627&rep=rep1&type=pdf}. 
 
 \item
 Static typing is when the variable's type is kow at compile time, where as dynamic typing is when we don't have to define the type before compiling; the compiler "trusts the programmer". Static typing's main advantage is that TypeError bugs are caught early on by the compiler. It also provides a sense of readability/safety especially with large amounts of code and classes because the programmer can easily tell what type of parameters/returns are being handled by a method. However, static typing can also be a burden for programmers, as it becomes difficult to type fast, clean code since you have to define types all the time.
@@ -72,15 +94,15 @@ The interface of a module enables the module's clients to utilize the service of
 
 \item
   \begin{enumerate}[i)]
-\item Abstraction
+\item Abstraction:
 Interfaces enable abstraction because interfaces produce an abstract model or blueprint on the methods that implementations can utilize. Interfaces should be created with abstraction in mind. 
-\item Anticipation of change
+\item Anticipation of change:
 Interfaces revolve around the idea of anticipation of change due to the fact that implementations may be changed during the development process or that newer implementations need to be made based on the same abstract model. 
-\item Generality
+\item Generality:
 Generality is an approch to tackle more general problems first, then moving towards the complex ones. Interfaces should be created with generality in mind, so that it is flexible if several implementations are needed.
-\item Modularity
+\item Modularity:
 Modularity is when we divide a complex system into modules. Interfaces can take advantage of this idea, as interfaces can be utilized for several modules/implementations, helping to keep modules simple and seperated.  
-\item Separation of concerns
+\item Separation of concerns:
 Seperation of concerns is similar to modularity, as its a principle that different concerns should be isolated. Seperation of concerns should be utilized with interfaces because while certain modules may have similar functionalities, it's important to keep them seperated. Interfaces help to do this, as modules can inherit from the same interfaces, but also extend on their own implementation.
 
 \end{enumerate}
