@@ -16,14 +16,15 @@
 \newcounter{stepnum}
 
 \title{Assignment 2 Solution}
-\author{Your name here}
+\author{Madhi Nagarajan, nagarajm}
 \date{\today}
 
 \begin {document}
 
 \maketitle
 
-Introduce report.
+This purpose of this assignment is based on creating a program for that handles chemical elements
+and has the ability to mathematically form molecules (MoleculeT), compounds (CompoundT), and balance chemical reactions (ReactionT). Testing and formatting of these classes were also done, utilizing pytest and flake8, to verify our personal code and our partner's code.
 
 \section{Testing of the Original Program}
 
@@ -37,7 +38,53 @@ Introduce report.
 \begin{enumerate}[a)]
 
 \item
-  
+With the natural language of A1, it was much easier to understand what the purpose was for each function or each file, thus it made it easier for me to implement. That being said, it does not give an exact specification on what parameters to take in or what the resulting output should exactly be. This means that the program depends on the developer's interpretation of the natural language specification. Thus, the end result may not maintain correctness it was expected to have. 
+\newline
+This is where a formal specification has its advantages. It clearly describes the parameters and output of the program. However one such feature it's lacking is that it is not very descriptive. I found that this assignment was somewhat difficult to understand the purpose of certain functions/code or how it can utilized by other classes. Furthermore, the specification can be somewhat restrictive of what the developer can do since it specifies how exactly the function/class should be designed.   
+
+\item
+
+
+
+\item
+I would change the current ChemTypes class to a store a list for each enum, containing both it's atomic number and atomic mass (eg. H = [1.01, 1]). We can then have a constructor (get\_mass()) that returns an element's atomic mass. For MoleculeT, a mass constructor can be used again, but this time it multiplies the number of atoms with the atomic mass. For CompoundT, it would take the sum of all MoleculeT masses in its compound.
+
+\item
+
+\item
+Static typing is when the variable's type is kow at compile time, where as dynamic typing is when we don't have to define the type before compiling; the compiler "trusts the programmer". Static typing's main advantage is that TypeError bugs are caught early on by the compiler. It also provides a sense of readability/safety especially with large amounts of code and classes because the programmer can easily tell what type of parameters/returns are being handled by a method. However, static typing can also be a burden for programmers, as it becomes difficult to type fast, clean code since you have to define types all the time.
+
+\item
+\begin{lstlisting}
+pairs = [(x, y) for x in range(10) for y in range(10) 
+		x % 2 == 1 and y % 2 == 1 and x < y]
+\end{lstlisting}
+
+\item
+\begin{lstlisting}
+def lengthlist(a):
+  b = map(lambda x: 1, a)
+  return sum(list(b))
+\end{lstlisting}
+
+\item
+The interface of a module enables the module's clients to utilize the service offered by the module.The implementation of an interface provides the services offered by the module. Often the inteface acts like a blueprint of the module, which one can then implement on top of for the module to work and provide functionality. However, the interface cannot do anything by itself; it needs to be implemented.
+
+\item
+  \begin{enumerate}[i)]
+\item Abstraction
+Interfaces enable abstraction because interfaces produce an abstract model or blueprint on the methods that implementations can utilize. Interfaces should be created with abstraction in mind. 
+\item Anticipation of change
+Interfaces revolve around the idea of anticipation of change due to the fact that implementations may be changed during the development process or that newer implementations need to be made based on the same abstract model. 
+\item Generality
+Generality is an approch to tackle more general problems first, then moving towards the complex ones. Interfaces should be created with generality in mind, so that it is flexible if several implementations are needed.
+\item Modularity
+Modularity is when we divide a complex system into modules. Interfaces can take advantage of this idea, as interfaces can be utilized for several modules/implementations, helping to keep modules simple and seperated.  
+\item Separation of concerns
+Seperation of concerns is similar to modularity, as its a principle that different concerns should be isolated. Seperation of concerns should be utilized with interfaces because while certain modules may have similar functionalities, it's important to keep them seperated. Interfaces help to do this, as modules can inherit from the same interfaces, but also extend on their own implementation.
+
+\end{enumerate}
+
 \end{enumerate}
 
 \newpage
