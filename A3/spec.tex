@@ -141,7 +141,8 @@ N/A
 
 \subsubsection* {Exported Types}
 
-\wss{What should be written here?}
+
+\wss{What should be written here?}  PointT = ?
 
 \subsubsection* {Exported Access Programs}
 
@@ -163,8 +164,8 @@ translate & $\mathbb{Z}$, $\mathbb{Z}$ & PointT & ~\\
 
 \subsubsection* {State Variables}
 
-$r$: \wss{What is the type of the state variables?}\\
-$c$: \wss{What is the type of the state variables?}
+$r:$ \wss{What is the type of the state variables?} $\mathbb{Z}$  \\ 
+$c:$ \wss{What is the type of the state variables?} $\mathbb{Z}$
 
 \subsubsection* {State Invariant}
 
@@ -180,7 +181,7 @@ an existing object.
 
 PointT($row, col$):
 \begin{itemize}
-\item transition: \wss{What should the state transition be for the constructor?}
+\item transition: \wss{What should the state transition be for the constructor?} $r, c := row, col$ 
 \item output: $out := \mathit{self}$
 \item exception: None
 \end{itemize}
@@ -193,14 +194,14 @@ PointT($row, col$):
 
 \noindent col():
 \begin{itemize}
-\item \wss{What should go here?}
+\item output: \wss{What should go here?} $out := c$
 \item exception: None
 \end{itemize}
 
 \noindent translate($\Delta r$, $\Delta c$):
 \begin{itemize}
-\item \wss{What should go here?}
-\item exception: \wss{What should go here?}
+\item output: \wss{What should go here?}  $out :=\mbox{PointT}(r + \Delta r, c + \Delta c)$
+\item exception: \wss{What should go here?}  None
 \end{itemize}
 
 \newpage
@@ -245,7 +246,7 @@ getScale & ~ & $\mathbb{R}$ & \\
 \hline
 count & T & $\mathbb{N}$ & \\
 \hline
-countRow & T, $\mathbb{N}$ & $\mathbb{N}$ & \\
+countRow & T, $\mathbb{N}$ & $\mathbb{N}$ & IndexOutOfBoundsException\\
 \hline
 area & T & $\mathbb{R}$ & \\
 \hline
@@ -281,27 +282,29 @@ called once.
 \subsubsection* {Access Routine Semantics}
 
 Seq2D($S$, scl):
-\begin{itemize}
-\item transition: \wss{Fill in the transition.}
+\begin{itemize}	
+\item transition: \wss{Fill in the transition.}  $s, scale, nRow, nCol:= S, scl,  |S[0]|, |S| $
 \item output: $\mathit{out} := \mathit{self}$
 \item exception: \wss{Fill in the exception.  One should be generated if the
     scale is less than zero, or the input sequence is empty, or the number of
     columns is zero in the first row, or the number of columns in any row is
-    different from the number of columns in the first row.}
+    different from the number of columns in the first row.}\\
+$(scale \le 0 \lor |S| = 0 \lor |S[0]| = 0 \lor \lnot\forall(l : \mbox{seq of T}|l\in S: |l| = |S[0]|)) \implies \mbox{IllegalArgumentException}$  
 \end{itemize}
 
 \noindent set($p, v$):
 \begin{itemize}
-\item transition: \wss{?}
+\item transition: \wss{?} $s[p.r][p.c] := v$
 \item exception: \wss{Generate an exception if the point lies outside of the
-    map.}
+    map.}\\ 
+$\lnot validPoint(p) \implies \mbox{IndexOutOfBoundsException}$
 \end{itemize}
 
 \noindent get($p$):
 \begin{itemize}
-\item output: \wss{?}
-\item exception: \wss{Generate an exception if the point lies outside of the
-    map.}
+\item output: \wss{?} $out := s[p.r][p.c]$
+\item exception: \wss{Generate an exception if the point lies outside of the map.}
+$\lnot validPoint(p) \implies \mbox{IndexOutOfBoundsException}$
 \end{itemize}
 
 \noindent getNumRow():
@@ -324,40 +327,43 @@ Seq2D($S$, scl):
 
 \noindent count($t$: T):
 \begin{itemize}
-\item output: \wss{Count the number of times the value $t$ occurs in the 2D
-    sequence.}
+\item output: \wss{Count the number of times the value $t$ occurs in the 2D sequence.}\\
+$out := +(i,j : \mathbb{N} | \mbox{validRow}(i) \land \mbox{validCol}(j) \land s[i][j] = t : 1) $
 \item exception: None
 \end{itemize}
 
 \noindent countRow($t$: T, $i: \mathbb{N}$):
 \begin{itemize}
-\item output: \wss{Count the number of times the value $t$ occurs in row
-    $i$.}
-\item exception: \wss{Generate an exception if the index is not a valid
-    row.}
+\item output: \wss{Count the number of times the value $t$ occurs in row $i$.}\\
+$out := +(j : \mathbb{N} | \mbox{validRow}(i) \land \mbox{validRow}(j) \land s[i][j] = t : 1)  $ 
+\item exception: \wss{Generate an exception if the index is not a valid row.}\\
+$\lnot \mbox{validRow}(i) \implies \mbox{IndexOutOfBoundsException}$
 \end{itemize}
 
 \noindent area($t$: T):
 \begin{itemize}
 \item output: \wss{Return the total area in the grid taken up by cell value $t$.
     The length of each side of each cell in the grid is
-    scale.}
+    scale.}\\
+$out := count(t) * scale$
 \item exception: None
 \end{itemize}
 
 \subsection*{Local Functions}
 
 \noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \wss{returns true if the given natural number is a valid row
-  number.}\\
+\noindent \wss{returns true if the given natural number is a valid row number.}\\ 
+$\mbox{validRow}(i) \equiv 0 \le i \le (\mbox{nRow} - 1)$ \\
 
 \noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent \wss{returns true if the given natural number is a valid column
   number.}\\
+$\mbox{validCol}(j) \equiv 0 \le j \le (\mbox{nCol} - 1)$ \\
 
 \noindent validPoint: $\mbox{PointT} \rightarrow \mathbb{B}$\\
 \noindent \wss{Returns true if the given point lies within the boundaries of the
   map.}\\
+$\mbox{validPoint}(p) \equiv \mbox{validRow}(p.r) \land \mbox{validCol}(p.c)$
 
 \newpage
 
@@ -365,7 +371,8 @@ Seq2D($S$, scl):
 
 \subsection* {Template Module}
 
-\wss{Instantiate the generic ADT Seq2D(T) with the type LanduseT}
+\wss{Instantiate the generic ADT Seq2D(T) with the type LanduseT}\\
+LanduseMapT is Seq2D(LanduseT)
 
 \newpage
 
@@ -397,7 +404,8 @@ ascendingRows & & $\mathbb{B}$ & \\
 
 \noindent total():
 \begin{itemize}
-\item output: \wss{Total of all the values in all of the cells.}
+\item output: \wss{Total of all the values in all of the cells.}\\
+$out := +(i,j : \mathbb{N}| \mbox{validRow}(i) \land  \mbox{validCol}(j) : s[i][j])$
 \item exception: None
 \end{itemize}
 
@@ -410,19 +418,21 @@ ascendingRows & & $\mathbb{B}$ & \\
 \noindent ascendingRows():
 \begin{itemize}
 \item output: \wss{Returns True if the sum of all values in each row increases
-    as the row number increases, otherwise, returns False.}
+    as the row number increases, otherwise, returns False.}\\
+$out := \forall i, j: $
 \item exception: None
 \end{itemize}
 
 \subsection*{Local Functions}
 
 \noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \wss{returns true if the given natural number is a valid row
-  number.}\\
+\noindent \wss{returns true if the given natural number is a valid row number.}\\ 
+$\mbox{validRow}(i) \equiv 0 \le i \le (\mbox{nRow} - 1)$ \\
 
 \noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent \wss{returns true if the given natural number is a valid column
   number.}\\
+$\mbox{validCol}(j) \equiv 0 \le j \le (\mbox{nCol} - 1)$ \\
 
 \newpage
 
@@ -433,7 +443,13 @@ anything missing?  Is there anything you would consider changing?  Why?  One
 thing you could discuss is that the Java implementation, following the notes
 given in the assignment description, will expose the use of ArrayList for Seq2D.
  How might you change this?  There are repeated local functions in two modules.
-What could you do about this?}\\
+What could you do about this?}\\\\
+One such change that I would consider changing is to have the DEM module to also inherit the local functions (eg. validRow).
+Since these functions provide the same purpose in both modules, we do not need to instantiate these functions in both the Seq2D and DEM module. 
+This would improve the modularity and simplicity of the specification. 
+In addition, declaring in the specification to utilize ArrayLists defeats the idea of abstraction, as it reveals the implementation details to the 
+user/client. Rather, the specification should allow the programmer to utilize whatever type that they feel is most suitable. \\\\
+
 
 In addition to your critique, please address the following questions:
 
@@ -452,5 +468,20 @@ In addition to your critique, please address the following questions:
   different directions. Why is it rarely possible to achieve a module interface
   that simultaneously is essential, minimal and general?
 \end{enumerate}
+
+\begin{enumerate}
+\item 
+
+\item 
+Java utilizes inheritance for equality, rather than an interface, because it's simple to implement an equals() method that works for both primitive and built-in object types (like String and Arraylist).
+Since types like String and Arraylist act as objects in java and are commonly used in programs all the time, it makes sense that Java designers ensured that equals() works with object types. If a developer 
+wished to use equals(), all they have to do is to create an override equals() method that handles equality for a custom object type.
+
+\item 
+
+
+
+\end{enumerate}
+
 
 \end {document}
