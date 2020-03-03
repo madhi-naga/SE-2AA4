@@ -398,6 +398,9 @@ ascendingRows & & $\mathbb{B}$ & \\
 \hline
 \end{tabular}
 
+\subsubsection* {Exported Constants}
+$maxPoint := s[0][0]$
+
 \subsection* {Semantics}
 
 \subsubsection* {Access Routine Semantics}
@@ -411,7 +414,8 @@ $out := +(i,j : \mathbb{N}| \mbox{validRow}(i) \land  \mbox{validCol}(j) : s[i][
 
 \noindent max():
 \begin{itemize}
-\item output: \wss{Find the maximum value in the 2d grid of integers}
+\item output: \wss{Find the maximum value in the 2d grid of integers}\\
+$out := \forall(i, j : \mathbb{N} : P : \mbox{PointT} | validRow(i) \land validCol(j) \land  s[i][j]) < maxPoint)$
 \item exception: None
 \end{itemize}
 
@@ -419,7 +423,7 @@ $out := +(i,j : \mathbb{N}| \mbox{validRow}(i) \land  \mbox{validCol}(j) : s[i][
 \begin{itemize}
 \item output: \wss{Returns True if the sum of all values in each row increases
     as the row number increases, otherwise, returns False.}\\
-$out := \forall i, j: $
+$out := \lnot \exists(i:\mathbb{N} | \mbox{validRow}(i-1) : +(j:\mathbb{N} | \mbox{validCol}(j) : s[i-1][j]) < +(j:\mathbb{N} | \mbox{validCol}(j) : s[i][j]) ) $
 \item exception: None
 \end{itemize}
 
@@ -469,17 +473,17 @@ In addition to your critique, please address the following questions:
   that simultaneously is essential, minimal and general?
 \end{enumerate}
 
+Answers: 
 \begin{enumerate}
 \item 
+The Equality interface would work for a seq2D of LanduseMapT since it utilizes enum (int) values as representation. However, the DemT implementation utilizes Integer object types. Thus, the Equality interface would not work for DemT, as you have to utilize equals() for checking the values of any object type. Furthermore, Java has it's own built-in Equality module, which developers can take advantage of, rather than creating a new Equality interface.
 
 \item 
-Java utilizes inheritance for equality, rather than an interface, because it's simple to implement an equals() method that works for both primitive and built-in object types (like String and Arraylist).
-Since types like String and Arraylist act as objects in java and are commonly used in programs all the time, it makes sense that Java designers ensured that equals() works with object types. If a developer 
-wished to use equals(), all they have to do is to create an override equals() method that handles equality for a custom object type.
+Java utilizes inheritance for Equality, rather than an interface, because it's simple to implement an equals() method that works for both primitive and built-in object types (like String and Arraylist).
+Since types like String, Integer, and Arraylist act as objects in java and are commonly used in programs all the time, it makes sense that Java designers ensured that equals() works with object types. If a developer wished to use equals(), all they have to do is to create an override equals() method that handles equality for a custom object type.
 
 \item 
-
-
+It is very difficult to implement a module interface that has essentiality, minimality and generality. This is because you will be very limited, in terms of functionality, for that interface if you wish to have all three qualities. Essentiality aims to omit unnecessary features that could be done with less routines instead. However, this would make an interface more specific because its routines would have more functionality. Thus, generality would be sacrificed. Minimality would also cause issues, as it's difficult to ensure that setting state variables are only being set once with your access routines, since generality prevents this.
 
 \end{enumerate}
 
