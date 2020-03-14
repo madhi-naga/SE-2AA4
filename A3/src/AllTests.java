@@ -5,16 +5,16 @@
  * Description: Testing all of the modules
  */
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+// import org.junit.runner.RunWith;
+// import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    TestPointT.class,
-    TestLanduseMapT.class,
-    TestDemT.class
-})
+// @RunWith(Suite.class)
+// @Suite.SuiteClasses({
+//     TestPointT.class,
+//     TestLanduseMapT.class,
+//     TestDemT.class
+// })
 
-public class AllTests
-{
-}
+// public class AllTests
+// {
+// }

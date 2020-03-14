@@ -1,10 +1,5 @@
-/**
- * Author: S. Smith
- * Revised: Feb 24, 2020
- * 
- * Description: A3 Examples
- */
 
+package src;
 import java.util.ArrayList;
 import java.util.Arrays;
 

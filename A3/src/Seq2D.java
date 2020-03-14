@@ -21,9 +21,9 @@ public class Seq2D<T> {
         this.s.get(p.row()).set(p.col(), v);
     }
 
-    public void get(PointT p) {
+    public T get(PointT p) {
         if(!this.validPoint(p)) throw new IndexOutOfBoundsException();
-        this.s.get(p.row()).get(p.col());
+        return this.s.get(p.row()).get(p.col());
     }
 
     public int getNumRow(){

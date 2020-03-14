@@ -19,6 +19,7 @@ public class DemT extends Seq2D<Integer> {
                 sum = sum + (int) this.s.get(i).get(j);
             }
         }
+        return sum;
     }
 
     public Integer max(){
