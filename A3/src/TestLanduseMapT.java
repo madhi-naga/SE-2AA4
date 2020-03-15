@@ -11,10 +11,12 @@ import src.PointT;
 public class TestLanduseMapT {
 
     private LanduseMapT lum1; 
+    private LanduseMapT lum2; 
     private PointT p1; 
     private ArrayList<ArrayList<LuT>> m1 = new ArrayList<ArrayList<LuT>>();
     private double one = 1.0;
     private PointT pz = new PointT(0, 0);
+    private double tol = 0.1; //for tolerance parameter
 
     @Before
     public void setUp(){
@@ -22,6 +24,7 @@ public class TestLanduseMapT {
         m1.add(new ArrayList<LuT>(Arrays.asList(LuT.C, LuT.T, LuT.A, LuT.A)));
         m1.add(new ArrayList<LuT>(Arrays.asList(LuT.C, LuT.T, LuT.A, LuT.A)));
         lum1 = new LanduseMapT(m1, one);
+        lum2 = new LanduseMapT(m1, 8.51);
     }
 
     @After
@@ -62,12 +65,32 @@ public class TestLanduseMapT {
     @Test
     public void testGetScale(){
         double n = 1.3;
-        assertEquals(lum1.getNumCol(), n);
+        assertEquals(lum1.getScale(), one, tol);
     }
 
     @Test
-    public void testGetCount(){
-        
+    public void testCountRow(){
+        int c1 = lum1.countRow(LuT.C, 1);
+        int c2 = lum1.countRow(LuT.A, 0);
+        assertEquals(c1, 1);
+        assertEquals(c2, 0);
+    }
+
+    @Test
+    public void testCount(){
+        int c1 = lum1.count(LuT.T);
+        int c2 = lum1.count(LuT.A);
+        assertEquals(c1, 3);
+        assertEquals(c2, 4);
+    }
+
+    
+    @Test
+    public void testArea(){
+        double a1 = lum2.area(LuT.T);
+        double a2 = lum2.area(LuT.A);
+        assertEquals(a1, 217.26, tol);
+        assertEquals(a2, 289.68, tol);
     }
 
 }

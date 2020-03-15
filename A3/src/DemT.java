@@ -12,12 +12,10 @@ public class DemT extends Seq2D<Integer> {
     }
 
     public int total(){
-        int z = 0;
         int sum = 0;
         for(int i = 0; i < this.getNumRow(); i++){
-            for(int j = 0; j < this.getNumCol(); j++){
-                sum = sum + (int) this.s.get(i).get(j);
-            }
+            for(int j = 0; j < this.getNumCol(); j++)
+                sum += (int) this.s.get(i).get(j);
         }
         return sum;
     }

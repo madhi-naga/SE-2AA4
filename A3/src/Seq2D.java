@@ -40,11 +40,8 @@ public class Seq2D<T> {
 
     public int count(T T){
         int cnt = 0;
-        for(int i = 0; i < nRow; i++){
-            for(int j = 0; j < nCol; j++){
-                if(s.get(i).get(j) == T) cnt++; 
-            } 
-        }
+        for(int i = 0; i < nRow; i++)
+            cnt += countRow(T, i);           
         return cnt;
     }
 
@@ -52,7 +49,7 @@ public class Seq2D<T> {
         if(!this.validRow(i)) throw new IndexOutOfBoundsException();
         int cnt = 0;
         for(int j = 0; j < nCol; j++){
-            if(s.get(i).get(j) == T) cnt++; 
+            if(s.get(i).get(j).equals(T)) cnt++; 
         }
         return cnt;
     }
