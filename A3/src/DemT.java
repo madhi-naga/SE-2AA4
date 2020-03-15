@@ -34,10 +34,12 @@ public class DemT extends Seq2D<Integer> {
     }
 
     public boolean ascendingRows(){
-        int isum = 0;
-        int isum2 = 0;
+        int isum;
+        int isum2;
 
         for(int i = 0; i <= this.getNumRow() - 2; i++){
+            isum = 0;
+            isum2 = 0;
             if(!this.validRow(i)) return false;
             for(int j = 0; j < this.getNumCol(); j++){
                 isum += (int) this.s.get(i).get(j);

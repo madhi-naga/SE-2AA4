@@ -16,14 +16,14 @@ public class Seq2D<T> {
         this.nCol = S.get(0).size();
     }
 
-    public void set(PointT p, T v) throws IndexOutOfBoundsException{
-        if(!this.validPoint(p)) throw new IndexOutOfBoundsException();
-        this.s.get(p.row()).set(p.col(), v);
-    }
-
     public T get(PointT p) {
         if(!this.validPoint(p)) throw new IndexOutOfBoundsException();
         return this.s.get(p.row()).get(p.col());
+    }
+
+    public void set(PointT p, T v) throws IndexOutOfBoundsException{
+        if(!this.validPoint(p)) throw new IndexOutOfBoundsException();
+        this.s.get(p.row()).set(p.col(), v);
     }
 
     public int getNumRow(){
