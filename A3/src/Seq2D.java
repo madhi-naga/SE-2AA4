@@ -9,7 +9,15 @@ public class Seq2D<T> {
     private final int nRow;
     private final int nCol;
 
-    public Seq2D(ArrayList<ArrayList<T>> S, double scl){
+    public Seq2D(ArrayList<ArrayList<T>> S, double scl) {
+
+        if(scl <= 0 || S.size() == 0 || S.get(0).size() == 0)
+            throw new IllegalArgumentException();
+
+        for(int i = 1; i < S.size(); i++)
+            if(S.get(0).size() != S.get(i).size())
+                throw new IllegalArgumentException();
+
         this.s = S;
         this.scale = scl;
         this.nRow = S.size();
@@ -21,7 +29,7 @@ public class Seq2D<T> {
         return this.s.get(p.row()).get(p.col());
     }
 
-    public void set(PointT p, T v) throws IndexOutOfBoundsException{
+    public void set(PointT p, T v) {
         if(!this.validPoint(p)) throw new IndexOutOfBoundsException();
         this.s.get(p.row()).set(p.col(), v);
     }
@@ -45,7 +53,7 @@ public class Seq2D<T> {
         return cnt;
     }
 
-    public int countRow(T T, int i) throws IndexOutOfBoundsException{
+    public int countRow(T T, int i) {
         if(!this.validRow(i)) throw new IndexOutOfBoundsException();
         int cnt = 0;
         for(int j = 0; j < nCol; j++){

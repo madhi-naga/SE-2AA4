@@ -11,23 +11,29 @@ public class TestDemT {
     private PointT p; 
     private DemT dem1;
     private DemT dem2;
+    private ArrayList<ArrayList<Integer>> d1 = new ArrayList<ArrayList<Integer>>();
+    private ArrayList<ArrayList<Integer>> d2 = new ArrayList<ArrayList<Integer>>();
 
     @Before
     public void setUp(){
-        ArrayList<ArrayList<Integer>> d1 = new ArrayList<ArrayList<Integer>>();
         d1.add(new ArrayList<Integer>(Arrays.asList(3, 2, 6, 4)));
         d1.add(new ArrayList<Integer>(Arrays.asList(1, 7, 22, 3)));
         d1.add(new ArrayList<Integer>(Arrays.asList(-5, 1, -15, 4)));
 
-        ArrayList<ArrayList<Integer>> d2 = new ArrayList<ArrayList<Integer>>();
-        d2.add(new ArrayList<Integer>(Arrays.asList(0, 1, 6, 2)));
+        d2.add(new ArrayList<Integer>(Arrays.asList(0, 1, 6)));
+        d2.add(new ArrayList<Integer>(Arrays.asList(3, 2, 7)));
+        d2.add(new ArrayList<Integer>(Arrays.asList(12, 9, 3)));
 
         dem1 = new DemT(d1, 1.0);
+        dem2 = new DemT(d2, 3.0);
     }
 
     @After
     public void tearDown(){
-
+        dem1 = null; 
+        dem2 = null; 
+        d1 = null; 
+        d2 = null;
     }
 
     @Test
@@ -45,7 +51,7 @@ public class TestDemT {
     @Test
     public void testAscRows(){
         assertFalse(dem1.ascendingRows());
-        //assertTrue(dem2.ascendingRows());
+        assertTrue(dem2.ascendingRows());
     }
 
 }

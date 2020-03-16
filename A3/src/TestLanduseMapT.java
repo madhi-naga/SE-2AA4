@@ -1,4 +1,7 @@
 import org.junit.*;
+
+import jdk.jfr.Timestamp;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -29,6 +32,14 @@ public class TestLanduseMapT {
 
     @After
     public void tearDown(){
+        lum1 = null; 
+        lum2 = null; 
+        p1 = null; 
+        m1 = null;
+    }
+
+    @Test
+    public void testConsExc(){
 
     }
 
@@ -42,6 +53,11 @@ public class TestLanduseMapT {
     }
 
     @Test
+    public void testGetExc(){
+        
+    }
+
+    @Test
     public void testSet(){
         p1 = new PointT(2, 3);
         lum1.set(pz, LuT.R);
@@ -50,6 +66,11 @@ public class TestLanduseMapT {
         LuT g2 = lum1.get(p1);
         assertEquals(g1, LuT.R);
         assertEquals(g2, LuT.C);
+    }
+
+    @Test
+    public void testSetExc(){
+        
     }
 
     @Test
@@ -74,6 +95,11 @@ public class TestLanduseMapT {
         int c2 = lum1.countRow(LuT.A, 0);
         assertEquals(c1, 1);
         assertEquals(c2, 0);
+    }
+
+    @Test
+    public void testCountRowExc(){
+        
     }
 
     @Test
