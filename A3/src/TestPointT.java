@@ -1,3 +1,12 @@
+/** 
+ *  Author: Madhi Nagarajan
+ *  Date: March 16, 2020
+ *  
+ *  Description: Testing the PointT class
+ *
+ */
+
+
 import org.junit.*;
 import static org.junit.Assert.*;
 import src.PointT;

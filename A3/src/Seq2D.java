@@ -1,7 +1,18 @@
+/** 
+ *  Author: Madhi Nagarajan
+ *  Date: March 16, 2020
+ *  
+ *  Description: Seq2D is a generic class that creates a 2D matrix (or array)
+ *
+ */
+
 package src;
 
 import java.util.ArrayList;
 
+/** 
+ *  @brief An ADT that represents a 2D matrix
+ */
 public class Seq2D<T> {
 
     protected final ArrayList<ArrayList<T>> s;
@@ -9,6 +20,11 @@ public class Seq2D<T> {
     private final int nRow;
     private final int nCol;
 
+    /** 
+     *  @brief An ADT that represents a 2D matrix
+     *  @param S A 2D array of a generic type
+     *  @param scl A double value that represents how much to scale each cell
+     */
     public Seq2D(ArrayList<ArrayList<T>> S, double scl) {
 
         if(scl <= 0 || S.size() == 0 || S.get(0).size() == 0)

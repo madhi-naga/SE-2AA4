@@ -1,6 +1,12 @@
-import org.junit.*;
+/** 
+ *  Author: Madhi Nagarajan
+ *  Date: March 16, 2020
+ *  
+ *  Description: Testing the LanduseMapT class
+ *
+ */
 
-import jdk.jfr.Timestamp;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 
@@ -38,10 +44,34 @@ public class TestLanduseMapT {
         m1 = null;
     }
 
-    @Test
-    public void testConsExc(){
+    @Test (expected=IllegalArgumentException.class)
+    public void testConsExcScl(){
+        LanduseMapT scltest = new LanduseMapT(m1, 0);
+        LanduseMapT scltest2 = new LanduseMapT(m1, -5.5);
+    }
+
+    @Test (expected=IllegalArgumentException.class)
+    public void testConsExcEmpty(){ 
+        ArrayList<ArrayList<LuT>> m2 = new ArrayList<ArrayList<LuT>>();
+        LanduseMapT lum3 = new LanduseMapT(m2, 1);
 
     }
+
+    @Test (expected=IllegalArgumentException.class)
+    public void testConsExcEmpty2(){ 
+        ArrayList<ArrayList<LuT>> m2 = new ArrayList<ArrayList<LuT>>();
+        m2.add(new ArrayList<LuT>(Arrays.asList()));
+        LanduseMapT lum3 = new LanduseMapT(m2, 1);
+    }
+
+    @Test (expected=IllegalArgumentException.class)
+    public void testConsExcUneven(){ 
+        ArrayList<ArrayList<LuT>> m2 = new ArrayList<ArrayList<LuT>>();
+        m2.add(new ArrayList<LuT>(Arrays.asList(LuT.C, LuT.T, LuT.A, LuT.A)));
+        m2.add(new ArrayList<LuT>(Arrays.asList(LuT.C, LuT.T, LuT.A)));
+        LanduseMapT lum3 = new LanduseMapT(m2, 1);
+    }
+
 
     @Test
     public void testGet(){
@@ -52,9 +82,9 @@ public class TestLanduseMapT {
         assertEquals(g2, LuT.T);
     }
 
-    @Test
+    @Test (expected=IndexOutOfBoundsException.class)
     public void testGetExc(){
-        
+        lum1.get(new PointT(10, 23)); 
     }
 
     @Test
@@ -68,9 +98,9 @@ public class TestLanduseMapT {
         assertEquals(g2, LuT.C);
     }
 
-    @Test
+    @Test (expected=IndexOutOfBoundsException.class)
     public void testSetExc(){
-        
+        lum1.set(new PointT(15, 21), LuT.C); 
     }
 
     @Test
@@ -97,9 +127,9 @@ public class TestLanduseMapT {
         assertEquals(c2, 0);
     }
 
-    @Test
+    @Test (expected=IndexOutOfBoundsException.class)
     public void testCountRowExc(){
-        
+        lum1.countRow(LuT.T, 5);
     }
 
     @Test

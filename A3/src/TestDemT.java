@@ -1,3 +1,11 @@
+/** 
+ *  Author: Madhi Nagarajan
+ *  Date: March 16, 2020
+ *  
+ *  Description: Testing the DemT class
+ *
+ */
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
