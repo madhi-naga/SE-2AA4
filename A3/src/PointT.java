@@ -18,7 +18,7 @@ public class PointT {
     private final int c;
 
     /** 
-     *  @brief An ADT that represents a point on a matrix/table
+     *  @brief Constructor for PointT
      *  @param r The location of the row that a point is on
      *  @param c The location of the column that a point is on
      */
@@ -28,26 +28,26 @@ public class PointT {
     }
 
     /** 
-     *  @brief An ADT that represents a point on a matrix/table
-     *  @return r The location of the row that the current point is on
+     *  @brief Getter method for the current row
+     *  @return The location of the row that the current point is on
      */
     public int row(){
         return this.r;
     }
 
     /** 
-     *  @brief An ADT that represents a point on a matrix/table
-     *  @return c The location of the column that the current point is on
+     *  @brief Getter method for the current column
+     *  @return The location of the column that the current point is on
      */
     public int col(){
         return this.c;
     }
 
     /** 
-     *  @brief An ADT that represents a point on a matrix/table
+     *  @brief Translates the current point by a certain num of rows and cols
      *  @param dr Delta R; how much rows that a point should be translated
      *  @param dc Delta C; how much columns that a point should be translated
-     *  @return newP The translated point based on the original point 
+     *  @return The translated point based on the original point 
      */
     public PointT translate(int dr, int dc){
         PointT newP = new PointT(this.row() + dr, this.col() + dc);

@@ -11,7 +11,7 @@ package src;
 import java.util.ArrayList;
 
 /** 
- *  @brief An ADT that represents a 2D matrix
+ *  @brief A generic ADT that represents a 2D matrix
  */
 public class Seq2D<T> {
 
@@ -21,9 +21,11 @@ public class Seq2D<T> {
     private final int nCol;
 
     /** 
-     *  @brief An ADT that represents a 2D matrix
-     *  @param S A 2D array of a generic type
+     *  @brief Constructor for Seq2D
+     *  @param S A 2D ArrayList of a generic type
      *  @param scl A double value that represents how much to scale each cell
+     *  @throws IllegalArgumentException If the scale is below 0, 
+     *  if the matrix is empty or if the rows have an uneven number of cells
      */
     public Seq2D(ArrayList<ArrayList<T>> S, double scl) {
 
@@ -40,28 +42,59 @@ public class Seq2D<T> {
         this.nCol = S.get(0).size();
     }
 
+    /** 
+     *  @brief Returns the value of a cell at a certain point
+     *  @param p A point represented by PointT
+     *  @return The value of a cell at the point p
+     *  @throws IndexOutOfBoundsException If the given point p is not 
+     *  in a valid cell of the matrix
+     */
     public T get(PointT p) {
         if(!this.validPoint(p)) throw new IndexOutOfBoundsException();
         return this.s.get(p.row()).get(p.col());
     }
 
+    /** 
+     *  @brief Sets the value of a point p equal to v
+     *  @param p A point represented by PointT
+     *  @param v A generic value 
+     *  @throws IndexOutOfBoundsException If the given point p is not 
+     *  in a valid cell of the matrix
+     */
     public void set(PointT p, T v) {
         if(!this.validPoint(p)) throw new IndexOutOfBoundsException();
         this.s.get(p.row()).set(p.col(), v);
     }
 
+    /** 
+     *  @brief Getter method for the number of rows
+     *  @return The number of rows in the current 2D matrix
+     */
     public int getNumRow(){
         return this.nRow;
     }
 
+    /** 
+     *  @brief Getter method for the number of columns
+     *  @return The number of columns in the current 2D matrix
+     */
     public int getNumCol(){
         return this.nCol;
     }
     
+    /** 
+     *  @brief Getter method for the scale of the 2D matrix
+     *  @return The scale of the matrix
+     */
     public double getScale(){
         return this.scale;
     }
 
+    /** 
+     *  @brief Calculates the number of times a value occurs in the current matrix
+     *  @param T A generic value to be checked
+     *  @return The number of times T occurs in the current matrix
+     */
     public int count(T T){
         int cnt = 0;
         for(int i = 0; i < nRow; i++)
@@ -69,6 +102,14 @@ public class Seq2D<T> {
         return cnt;
     }
 
+    /** 
+     *  @brief Calculates the number of times a value occurs in the given row
+     *  @param T A generic value to be checked
+     *  @param i The location of the row
+     *  @return The number of times T occurs in a given row i
+     *  @throws IndexOutOfBoundsException If the given row i is not valid
+     *  in the current matrix
+     */
     public int countRow(T T, int i) {
         if(!this.validRow(i)) throw new IndexOutOfBoundsException();
         int cnt = 0;
@@ -78,6 +119,11 @@ public class Seq2D<T> {
         return cnt;
     }
 
+    /** 
+     *  @brief Calculates the area covered by points that contain the same value
+     *  @param T A generic value to be checked
+     *  @return The area covered by T in a 2D matrix
+     */
     public double area(T T){
         return this.count(T)*(Math.pow(scale,2));
     }
