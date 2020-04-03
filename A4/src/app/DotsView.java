@@ -10,35 +10,67 @@ public class DotsView {
     public void startMenu() {
         System.out.println();
         System.out.println("Welcome to Dots!");
-        System.out.println("To make connections, type coordinates that are adjacent in the specific order");
-        System.out.println("To escape the game, enter 'e'");
-        System.out.println("To start, enter 's'");
+        System.out.println("To gain points, type coordinates (row location, column location) that are adjacent");
+        System.out.println("(Eg. 00,01,11)");
+        System.out.println("To play Infinite Mode, enter 'i'");
+        System.out.println("To play Target Mode, enter 't'");
+        System.out.println("To escape anytime, enter 'e'");
     }
 
     public void printEnterNewInput(){
-        System.out.println("Enter new input: ");
+        System.out.println("Enter your next move: ");
+    }
+
+    public void displayScore(int n){
+        System.out.println("Your score: " + n);
+    }
+    public void displayTarget(int n){
+        System.out.println("Target: " + n);
+    }
+
+    public void displayMovesLeft(int n){
+        System.out.println("Your moves left: " + n);
+    }
+
+    public void printInvalidMove(){
+        System.out.println("Invalid Move");
+    }
+
+    public void printScoreReached(){
+        System.out.println("Congrats! You've beat the target score.");
+    }
+    
+    public void printMovesOut(){
+        System.out.println("You're out of moves. Better luck next time!");
     }
 
     public void renderDots(Dots dots) {
         System.out.println();
-        System.out.println("   0 1 2 3 4");
-        for (int i = 0; i < 3; i++) {
+        int n = dots.matrix().size();
+        
+        System.out.print("   "); 
+        for(int i = 0; i < n; i++)
+            System.out.print(i + " ");
+        System.out.println();
+
+        for (int i = 0; i < n; i++) {
             System.out.print(i + "  ");
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < n; j++) {
                 System.out.print(dots.matrix().get(i).get(j).name() + " ");
             }
             System.out.println();
         }
     }
 
-    public String[] readInput() {
+    public String getInput() {
         BufferedReader br =  new BufferedReader(new InputStreamReader(System.in));
-        String[] input = null;
+        String input = null;
         try {
-            input = br.readLine().split(",");
+            input = br.readLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println();
         return input;
     }
 
