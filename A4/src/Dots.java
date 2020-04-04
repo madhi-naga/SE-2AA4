@@ -1,4 +1,4 @@
-package app;
+package src;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,10 @@ public class Dots {
 
     public ArrayList<ArrayList<ColourT>> matrix(){
         return this.matrix;
+    }
+
+    public void setMatrix(ArrayList<ArrayList<ColourT>> c){
+        this.matrix = c;
     }
 
     public ColourT getColour(int i, int j){

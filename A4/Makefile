@@ -1,7 +1,7 @@
 
 JFLAGS = -g
-JCLASS = -cp ./app:.: #$(CLASSPATH).:./junit4-4.5.jar
-#JCLASS = -cp ./app:.:$(CLASSPATH):/usr/share/java/junit4-4.5.jar # on mills
+JCLASS = -cp ./src:.:$(CLASSPATH).:./src/junit-4.5.jar
+#JCLASS = -cp ./src:.:$(CLASSPATH):/usr/share/java/junit4-4.5.jar # on mills
 JC = javac
 JVM = java
 .SUFFIXES: .java .class
@@ -9,12 +9,12 @@ JVM = java
 	$(JC) $(JFLAGS) $(JCLASS) $*.java
 
 CLASSES = \
-	app/ColourT.java \
-	app/Dots.java \
-	app/DotsController.java \
-	app/DotsView.java \
-	app/DotsEngine.java \
-	app/TestDots.java \
+	src/ColourT.java \
+	src/Dots.java \
+	src/DotsController.java \
+	src/DotsView.java \
+	src/DotsEngine.java \
+	src/TestDots.java \
 
 TEST = TestDots
 
@@ -26,15 +26,15 @@ doc:
 	doxygen doxConfig
 	cd latex && $(MAKE)
 
-test: app/$(TEST).class
+test: src/$(TEST).class
 	$(JVM) $(JCLASS) org.junit.runner.JUnitCore $(TEST)
 
-expt: app/DotsEngine.java
-	$(JC) $(JCLASS) $(JFLAGS) app/DotsEngine.java
+expt: src/DotsEngine.java
+	$(JC) $(JCLASS) $(JFLAGS) src/DotsEngine.java
 	$(JVM) $(JCLASS) DotsEngine
 
 clean:
 	rm -rf html
 	rm -rf latex
-	cd app
+	cd src
 	rm **/*.class

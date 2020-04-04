@@ -1,7 +1,7 @@
 
-import app.Dots;
-import app.DotsController;
-import app.DotsView;
+import src.Dots;
+import src.DotsController;
+import src.DotsView;
 
 public class DotsEngine {
     public static void main(String[] args) {

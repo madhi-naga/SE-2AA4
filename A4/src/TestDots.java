@@ -5,20 +5,24 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import app.Dots;
-import app.DotsController;
+import src.Dots;
+import src.DotsController;
+import src.ColourT;
 
 public class TestDots {
     private Dots dots;
+    private ArrayList<ArrayList<ColourT>> arr;
     
     @Before
     public void setUp(){
-        Dots dots = new Dots(4);
+        dots = new Dots(4);
+        arr = new ArrayList<ArrayList<ColourT>>();
 
-        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.B, ColourT.Y)));
-        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.P)));
-        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.B, ColourT.P, ColourT.P, ColourT.P)));
-        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.G)));
+        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.B, ColourT.Y)));
+        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.P)));
+        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.B, ColourT.P, ColourT.P, ColourT.P)));
+        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.G)));
+        dots.setMatrix(arr);
     }
 
     @After
@@ -46,7 +50,7 @@ public class TestDots {
         assertTrue(dots.isValidPath(path2));
         String[] path3 = {"21", "22", "23", "13"};
         assertTrue(dots.isValidPath(path3));
-        String[] path4 = {"00", "40"};
+        String[] path4 = {"00", "30"};
         assertFalse(dots.isValidPath(path4));
     }
 }
