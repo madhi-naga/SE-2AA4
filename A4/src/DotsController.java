@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class DotsController {
 
-    private final Dots model;
+    private Dots model;
     private final DotsView view;
     private String[] input;
 
@@ -39,6 +39,13 @@ public class DotsController {
 
     public void startGame() {
         model.initializeDots();
+
+        while(!model.hasValidCombo()){
+            int n = model.n();
+            model = new Dots(n);
+            model.initializeDots();
+        }
+
         view.startMenu();
 
         String s = view.getInput();
@@ -59,6 +66,14 @@ public class DotsController {
 
             if (s.equals(esc))
                 System.exit(0);
+            
+            if(!model.hasValidCombo()){
+                int n = model.n();
+                model = new Dots(n);
+                model.initializeDots();
+                view.printReshuffled();
+                continue;
+            }
 
             if(this.isValidInput(s)){
                 String[] input = this.toArray(s);

@@ -35,6 +35,9 @@ public class DotsView {
         System.out.println("Invalid Move");
     }
 
+    public void printReshuffled() {
+        System.out.println("Reshuffled the Board!");
+    }
     public void printScoreReached(){
         System.out.println("Congrats! You've beat the target score.");
     }

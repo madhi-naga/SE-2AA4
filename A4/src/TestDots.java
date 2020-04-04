@@ -53,4 +53,10 @@ public class TestDots {
         String[] path4 = {"00", "30"};
         assertFalse(dots.isValidPath(path4));
     }
+
+    @Test
+    public void testHasValidCombo(){
+        assertTrue(dots.hasValidCombo());
+    }
+    
 }

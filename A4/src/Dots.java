@@ -16,6 +16,10 @@ public class Dots {
         return this.matrix;
     }
 
+    public int n(){
+        return this.n;
+    }
+
     public void setMatrix(ArrayList<ArrayList<ColourT>> c){
         this.matrix = c;
     }
@@ -104,6 +108,18 @@ public class Dots {
             this.setColour(i, j, null);
         }        
         this.dropDots();
+    }
+
+    public boolean hasValidCombo() {
+        for(int i = 0; i < this.n - 1; i++){
+            for(int j = 0; j < this.n - 1; j++){
+                if(this.getColour(i, j) == this.getColour(i, j+1))
+                    return true;
+                if(this.getColour(i, j) == this.getColour(i+1, j))
+                    return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -5,7 +5,7 @@ import src.DotsView;
 
 public class DotsEngine {
     public static void main(String[] args) {
-        Dots model = new Dots(5);
+        Dots model = new Dots(2);
         DotsView view = new DotsView();
         DotsController cont = new DotsController(model, view);
 
