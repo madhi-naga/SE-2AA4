@@ -32,17 +32,41 @@ public class Dots {
         this.matrix.get(i).set(j, ColourT.getRandomColour());
     }
 
-    public void dropColour(int i, int j, int x){
-        ColourT c = this.matrix.get(i-x).get(j);
-        this.matrix.get(i).set(j, c);
-    }
-
     public void initializeDots() {
         for (int i = 0; i < this.n; i++) {
             this.matrix.add(new ArrayList<ColourT>());
             for (int j = 0; j < this.n; j++) 
                 addRandomColour(i, j);
         }
+    }
+
+    public boolean isValidPath(String[] input) {
+        ColourT prevc = null;
+        int previ = -1;
+        int prevj = -1;
+        int x = 0;
+
+        for (String s : input) {
+            int i = Character.getNumericValue(s.charAt(0));
+            int j = Character.getNumericValue(s.charAt(1));
+
+            if (x == 0) {
+                prevc = this.matrix().get(i).get(j);
+            } else {
+                if (this.getColour(i, j) != prevc)
+                    return false;
+                if(!(i == previ || j == prevj))
+                    return false;
+                if(i == previ && j == prevj)
+                    return false;
+                if(Math.abs(i - previ) > 1 || Math.abs(j - prevj) > 1)
+                    return false;
+            }
+            previ = i;
+            prevj = j;
+            x++;
+        }
+        return true;
     }
 
     public void dropDots(){
@@ -67,6 +91,15 @@ public class Dots {
                 }
             }
         }   
+    }
+
+    public void processDots(String[] input) {
+        for (String s : input) {
+            int i = Character.getNumericValue(s.charAt(0));
+            int j = Character.getNumericValue(s.charAt(1));
+            this.setColour(i, j, null);
+        }        
+        this.dropDots();
     }
 
 }

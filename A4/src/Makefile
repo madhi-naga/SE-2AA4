@@ -15,7 +15,6 @@ CLASSES = \
 	app/DotsView.java \
 	app/DotsEngine.java \
 	app/TestDots.java \
-	app/DotsApp.java \
 
 TEST = TestDots
 
@@ -30,9 +29,9 @@ doc:
 test: app/$(TEST).class
 	$(JVM) $(JCLASS) org.junit.runner.JUnitCore $(TEST)
 
-expt: app/DotsApp.java
-	$(JC) $(JCLASS) $(JFLAGS) app/DotsApp.java
-	$(JVM) $(JCLASS) DotsApp
+expt: app/DotsEngine.java
+	$(JC) $(JCLASS) $(JFLAGS) app/DotsEngine.java
+	$(JVM) $(JCLASS) DotsEngine
 
 clean:
 	rm -rf html

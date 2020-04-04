@@ -2,7 +2,6 @@ package app;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class DotsView {
 
@@ -10,7 +9,7 @@ public class DotsView {
     public void startMenu() {
         System.out.println();
         System.out.println("Welcome to Dots!");
-        System.out.println("To gain points, type coordinates (row location, column location) that are adjacent");
+        System.out.println("To gain points, type coordinates by (column, row) that are adjacent");
         System.out.println("(Eg. 00,01,11)");
         System.out.println("To play Infinite Mode, enter 'i'");
         System.out.println("To play Target Mode, enter 't'");
