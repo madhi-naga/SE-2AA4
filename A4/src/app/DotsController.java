@@ -1,9 +1,5 @@
 package app;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class DotsController {
 
     private final Dots model;

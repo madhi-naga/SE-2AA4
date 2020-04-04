@@ -1,5 +1,4 @@
 package app;
-
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DotsEngine {
@@ -84,8 +83,5 @@ public class DotsEngine {
         System.exit(0);
     }
     
-    public static void main(String[] args) throws Exception {
-        DotsEngine d = new DotsEngine();
-        d.startGame();
-    }
+    
 }
