@@ -10,7 +10,6 @@ import app.DotsController;
 
 public class TestDots {
     private Dots dots;
-    private DotsController cont = new DotsController(); 
     
     @Before
     public void setUp(){
@@ -41,6 +40,13 @@ public class TestDots {
 
     @Test
     public void testIsValidPath(){
-        String[] path1 = {"00", "03"};
+        String[] path1 = {"00", "01", "02"};
+        assertFalse(dots.isValidPath(path1));
+        String[] path2 = {"01", "11", "12"};
+        assertTrue(dots.isValidPath(path2));
+        String[] path3 = {"21", "22", "23", "13"};
+        assertTrue(dots.isValidPath(path3));
+        String[] path4 = {"00", "40"};
+        assertFalse(dots.isValidPath(path4));
     }
 }
