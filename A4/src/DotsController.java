@@ -1,3 +1,12 @@
+/**
+ * Author: Madhi Nagarajan
+ * 
+ * Description: The Controller Module of the Dots Model 
+ * which communicates between and updates the model and view 
+ * to run the Dots game 
+ */
+
+
 package src;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,11 +21,21 @@ public class DotsController {
     String target = "t";
     String esc = "e";
 
+    /**
+   * @brief Constructor for the Dots Game Controller
+   * @param model The Dots model
+   * @param view The Dots view
+   */
     public DotsController(Dots model, DotsView view) {
         this.model = model;
         this.view = view;
     }
 
+    /**
+   * @brief Checks if the given input is a valid sequence of coordinates
+   * @param buffer The input given
+   * @return A boolean based on if the given input is a valid sequence of coordinates
+   */
     public boolean isValidInput(String buffer) {
         input = buffer.split(",");
 
@@ -33,10 +52,18 @@ public class DotsController {
         return true;
     }
 
+    /**
+   * @brief Splits and returns an array of the input given
+   * @param buffer The input givennah 
+   * @return An array of the input given
+   */
     public String[] toArray(String buffer) {
         return buffer.split(",");
     }
 
+    /**
+   * @brief Begins the Dots game
+   */
     public void startGame() {
         model.initializeDots();
 
@@ -56,6 +83,9 @@ public class DotsController {
             TargetMode();
     }
 
+    /**
+   * @brief The Infinite game mode of Dots
+   */
     public void InfiniteMode(){
         int score = 0;
         while (true) {
@@ -89,6 +119,10 @@ public class DotsController {
         
     }
 
+    /**
+   * @brief The Targel game mode of Dots; Player needs to beat the target score 
+   * with a limited amount of moves
+   */
     public void TargetMode(){
         int score = 0;
         int target = ThreadLocalRandom.current().nextInt(20, 40);

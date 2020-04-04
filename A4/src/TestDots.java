@@ -1,3 +1,8 @@
+/**
+ * Author: Madhi Nagarajan
+ * 
+ * Description: JUnit Test file to test correctness of Dots.java
+ */
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -11,18 +16,15 @@ import src.ColourT;
 
 public class TestDots {
     private Dots dots;
-    private ArrayList<ArrayList<ColourT>> arr;
     
     @Before
     public void setUp(){
         dots = new Dots(4);
-        arr = new ArrayList<ArrayList<ColourT>>();
 
-        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.B, ColourT.Y)));
-        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.P)));
-        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.B, ColourT.P, ColourT.P, ColourT.P)));
-        arr.add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.G)));
-        dots.setMatrix(arr);
+        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.B, ColourT.Y)));
+        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.P)));
+        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.B, ColourT.P, ColourT.P, ColourT.P)));
+        dots.matrix().add(new ArrayList<ColourT>(Arrays.asList(ColourT.R, ColourT.G, ColourT.G, ColourT.G)));
     }
 
     @After

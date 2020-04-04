@@ -1,3 +1,11 @@
+/**
+ * Author: Madhi Nagarajan
+ * 
+ * Description: An Model/ADT that represents the game board & pieces 
+ * of the Dots Game
+ */
+
+
 package src;
 
 import java.util.ArrayList;
@@ -7,47 +15,85 @@ public class Dots {
     private ArrayList<ArrayList<ColourT>> matrix;
     private int n;
 
+    /**
+   * @brief Initializes the Dots model
+   * @param n The size of the Dots matrix board 
+   */
     public Dots(int n){
         this.matrix = new ArrayList<>();
         this.n = n;
     }
 
+    /**
+   * @brief Returns a 2D array tha represents the Dots matrix board
+   * @return The matrix board 
+   */
     public ArrayList<ArrayList<ColourT>> matrix(){
         return this.matrix;
     }
 
+    /**
+   * @brief Returns the size of the Dots matrix board
+   * @return The size of the Dots matrix board
+   */
     public int n(){
         return this.n;
     }
 
-    public void setMatrix(ArrayList<ArrayList<ColourT>> c){
-        this.matrix = c;
-    }
-
+    /**
+   * @brief Returns the colour at a specific point in the matrix
+   * @param i The ith row of the matrix
+   * @param j The jth column of the matrix
+   * @return The colour at position i,j in the matrix
+   */
     public ColourT getColour(int i, int j){
         return this.matrix.get(i).get(j);
     }
 
+    /**
+   * @brief Sets an existing location to the given colour
+   * @param i The ith row of the matrix
+   * @param j The jth column of the matrix
+   * @param c The colour to set, represented by ColourT
+   */
     public void setColour(int i, int j, ColourT c){
         this.matrix.get(i).set(j, c);
     }
 
-    public void addRandomColour(int i, int j){
-        this.matrix().get(i).add(ColourT.getRandomColour());
+    /**
+   * @brief Adds a new random colour to the matrix
+   * @param i The ith row of the matrix
+   * @param c The colour to set, represented by ColourT
+   */
+    public void addRandomColour(int i){
+        this.matrix.get(i).add(ColourT.getRandomColour());
     }
     
+    /**
+   * @brief Sets an existing location to a random colour
+   * @param i The ith row of the matrix
+   * @param j The jth column of the matrix
+   */
     public void setRandomColour(int i, int j){
         this.matrix.get(i).set(j, ColourT.getRandomColour());
     }
 
+    /**
+   * @brief Initializes a new Dots Matrix with random colours
+   */
     public void initializeDots() {
         for (int i = 0; i < this.n; i++) {
             this.matrix.add(new ArrayList<ColourT>());
             for (int j = 0; j < this.n; j++) 
-                addRandomColour(i, j);
+                addRandomColour(i);
         }
     }
 
+    /**
+   * @brief Checks if the given input is a valid path in the matrix
+   * @param input The input entered by the player, represented by an array
+   * @return A boolean based on whether the input is a valid path
+   */
     public boolean isValidPath(String[] input) {
         ColourT prevc = null;
         int previ = -1;
@@ -59,7 +105,7 @@ public class Dots {
             int j = Character.getNumericValue(s.charAt(1));
 
             if (x == 0) {
-                prevc = this.matrix().get(i).get(j);
+                prevc = this.matrix.get(i).get(j);
             } else {
                 if (this.getColour(i, j) != prevc)
                     return false;
@@ -77,6 +123,10 @@ public class Dots {
         return true;
     }
 
+    /**
+   * @brief Modifies the matrix by moving down above elements to existing null spaces
+   * in the matrix and fills rest of the elements (now null) with random colours 
+   */
     public void dropDots(){
         int emp;
         for(int i = 0; i < this.n; i++){
@@ -101,6 +151,11 @@ public class Dots {
         }   
     }
 
+    
+    /**
+   * @brief Clears (makes null) elements of the matrix based on a given path and 
+   * drops the existing elements
+   */
     public void processDots(String[] input) {
         for (String s : input) {
             int i = Character.getNumericValue(s.charAt(0));
