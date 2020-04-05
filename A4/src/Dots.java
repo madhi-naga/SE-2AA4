@@ -151,7 +151,6 @@ public class Dots {
         }   
     }
 
-    
     /**
    * @brief Clears (makes null) elements of the matrix based on a given path and 
    * drops the existing elements

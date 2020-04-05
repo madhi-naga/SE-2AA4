@@ -9,8 +9,6 @@
 
 package src;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class DotsController {
 
     private Dots model;
@@ -125,8 +123,8 @@ public class DotsController {
    */
     public void TargetMode(){
         int score = 0;
-        int target = ThreadLocalRandom.current().nextInt(20, 40);
-        int movesleft = ThreadLocalRandom.current().nextInt(7, 15);
+        int target = (int) (Math.random() * (30));
+        int movesleft = (int) (target/2.3);
         boolean scoreReached = false;
         
         while (true) {
