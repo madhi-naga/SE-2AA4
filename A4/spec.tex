@@ -1,0 +1,402 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{url}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+%% Comments
+
+\usepackage{color}
+
+\newif\ifcomments\commentstrue
+
+\ifcomments
+\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\else
+\newcommand{\authornote}[3]{}
+\newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
+
+\title{Assignment 4 Specification}
+\author{SFWR ENG 2AA4}
+
+
+\begin {document}
+
+\maketitle
+This Module Interface Specification (MIS) document contains modules, types and methods for implementing the Dots game. The spec utilizes the Model-View-Controller design pattern. 
+
+The model creates and sets up the Dots Game board and its arrangement, as well as modifying the board's state. The view displays the Dots Game Board \& game messages to the user, and also receives the input from the user. The controller contains the logic and action of the Dots game, calling both the model and view to modify both the game board and display messages based on the game logic.
+
+\newpage
+
+\section* {Colour Type Module}
+
+\subsection*{Module}
+
+ColourT
+
+\subsection* {Uses}
+
+N/A
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+Colours = \{R, G, B, Y, P\}\\
+
+\noindent \textit{//R stands for Red, G for Green, B for Blue, Y for
+  Yellow, P for Pink}
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+getRandomColour & ~ & ColourT & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Considerations}
+
+\newpage
+
+\subsubsection* {Access Routine Semantics}
+
+getRandomColour():
+\begin{itemize}
+\item output: $out := $
+\item exception: None
+\end{itemize}
+
+
+\newpage
+
+\section* {Dots ADT Module}
+
+\subsection*{Template/Model Module}
+
+Dots
+
+\subsection* {Uses}
+
+ColourT
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+Dots = ?
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Dots & $\mathbb{Z}$ & Dots & ~\\
+\hline
+matrix & ~ & Seq(Seq(ColourT)) & ~\\
+\hline
+n & ~ & $\mathbb{Z}$ & ~\\
+\hline
+getColour & $\mathbb{Z}$, $\mathbb{Z}$ & ColourT & ~\\
+\hline
+setColour & $\mathbb{Z}$, $\mathbb{Z}$ & ~ & ~\\
+\hline
+addRandomColour & $\mathbb{Z}$ & ~ & ~\\
+\hline
+setRandomColour & $\mathbb{Z}$, $\mathbb{Z}$ & ~ & ~\\
+\hline
+initializeDots & ~ & ~ & ~\\
+\hline
+isValidPath & Seq(string) & $\mathbb{B}$ & ~\\
+\hline
+dropDots & ~ & ~ & ~\\
+\hline
+processDots & ~ & ~ & ~\\
+\hline
+hasValidCombo & ~ & $\mathbb{B}$ & ~\\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$n$: $\mathbb{Z}$\\
+$matrix$: Seq of (Seq of ColourT)
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+...
+
+\subsubsection* {Access Routine Semantics}
+
+Dots($\mbox{num}$):
+\begin{itemize}
+\item transition: $\mbox{n, matrix} := \mbox{num}, \mbox{new Seq of (Seq of ColourT)} $
+\item output: $out := \mathit{self}$
+\item exception: None
+\end{itemize}
+
+\noindent matrix():
+\begin{itemize}
+\item output: $out := \mbox{Seq of (Seq of ColourT)}$
+\item exception: None
+\end{itemize}
+
+\noindent n():
+\begin{itemize}
+\item \wss{What should go here?}output: $out := n$
+\item exception: None
+\end{itemize}
+
+\noindent getColour($i$, $j$):
+\begin{itemize}
+\item output: $out := \mbox{matrix}[i][j]$
+\item exception: None
+\end{itemize}
+
+\noindent setColour($i$, $j$, $c$):
+\begin{itemize}
+\item transition: $\mbox{matrix}[i][j] := c$
+\item exception: None
+\end{itemize}
+
+\noindent addRandomColour($i$):
+\begin{itemize}
+\item transition: $\mbox{matrix}[i].append()$
+\item exception: None
+\end{itemize}
+
+\noindent setRandomColour($i$, $j$):
+\begin{itemize}
+\item transition: $\mbox{matrix}[i][j] := $
+\item exception: None
+\end{itemize}
+
+\noindent initializeDots():
+\begin{itemize}
+\item transition: $\forall i, j: \mbox{matrix}[i][j] := $
+\item exception: None
+\end{itemize}
+
+\noindent isValidPath(input):
+\begin{itemize}
+\item out: $\forall i, j: \mbox{matrix}[i][j] := $
+\item exception: None
+\end{itemize}
+
+\noindent dropDots():
+\begin{itemize}
+\item transition: $\mbox{matrix}[i][j] := $
+\item exception: None
+\end{itemize}
+
+\noindent processDots():
+\begin{itemize}
+\item transition: $\mbox{matrix}[i][j] := $
+\item exception: None
+\end{itemize}
+
+\noindent hasValidPath():
+\begin{itemize}
+\item out: $\mbox{matrix}[i][j] := $
+\item exception: None
+\end{itemize}
+
+\newpage
+
+\section* {Dots View Module}
+
+\subsection* {View Module}
+DotsView
+
+\subsection* {Uses}
+N/A
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+?
+
+\subsubsection* {Exported Constants}
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+startMenu & ~ & ~ & ~\\
+\hline
+printEnterNewInput & ~ & ~ & ~\\
+\hline
+displayScore & $\mathbb{Z}$ & ~ & ~\\
+\hline
+displayTarget & $\mathbb{Z}$ & ~ & ~\\
+\hline
+displayMovesLeft & $\mathbb{Z}$ & ~ & ~\\
+\hline
+printInvalidMove & ~ & ~ & ~\\
+\hline
+printReshuffled & ~ & ~ & ~ \\
+\hline
+printScoreReached & ~ & ~  & ~\\
+\hline
+printMovesOut & ~ & ~  & ~\\
+\hline
+renderDots & Seq(Seq(ColourT)) & ~  & ~\\
+\hline
+getInput & ~ & string & ~ \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+None
+
+\subsubsection* {State Invariant}
+None
+
+\subsubsection* {Assumptions}
+Since most of the routines in the View are just displaying print statements, the routines are ignored in the Access Routine Semantics. The purpose of each View routine is listed below: 
+
+\begin{itemize}
+\item startMenu(): display the Game Menu message
+\item printEnterNewInput(): displays Enter New Input message
+\item displayScore(n): display Score of $n$ 
+\item displayTarget(n): display Target of $n$ 
+\item displayMovesLeft(n): display Moves of $n$ 
+\item printInvalidMove(): display Invalid Move message
+\item printReshuffled(): displays Board Reshuffled message
+\item printScoreReached(): displays Score Reached message
+\item renderDots(board): display Game Board by: $\forall i, j: \mbox{display each }  \mbox{board}[i][j] $
+\item getInput(): read and return input message
+
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+N/A
+
+\newpage
+
+\section* {Dots Controller Module}
+
+\subsection* {Controller Module}
+
+DotsController
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+DotsController & Dots, DotsView & DotsController & \\
+\hline
+isValidInput & string & $\mathbb{B}$ & ~\\
+\hline
+startGame & ~ & ~ & ~ \\
+\hline
+infiniteMode & ~ & ~ & ~ \\
+\hline
+targetMode & ~ & ~ & ~ \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent total():
+\begin{itemize}
+\item output: \wss{Total of all the values in all of the cells.}$out := +(i, j: \mathbb{N}| \mbox{validRow}(i) \land
+  \mbox{validCol}(j)  : s[i][j] )$
+\item exception: None
+\end{itemize}
+
+\noindent max():
+\begin{itemize}
+\item output:   $out := s[mi][mj] \mbox{ such that } \forall (i, j: \mathbb{N}|
+  \mbox{validRow}(i) \land \mbox{validCol}(j) : s[i][j] \leq s[mi][mj])$
+\item exception: None
+\end{itemize}
+
+\noindent ascendingRows():
+\begin{itemize}
+\item output: \wss{Returns True if the sum of all values in each row increases
+    as the row number increases, otherwise, returns False.}$out := \forall (i:
+  \mathbb{N}| 0 \leq i \leq \text{nRow} - 2 : +(j: \mathbb{N} |
+  \text{validCol}(j) : s[i+1][j]) > +(j: \mathbb{N} |
+  \text{validCol}(j) : s[i][j]))$
+\item exception: None
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent \wss{returns true if the given natural number is a valid row
+  number.}$\mbox{validRow}(i) \equiv 0 \leq i \leq (\mbox{nRow} - 1)$\\
+
+\noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent $\mbox{validCol}(j) \equiv 0 \leq j \leq (\mbox{nCol} - 1)$\\
+
+\newpage
+
+\section*{Answer to Design Questions}
+
+\begin{enumerate}
+\item The 
+
+\item Although 
+ 
+\end{enumerate}
+
+\end {document}
