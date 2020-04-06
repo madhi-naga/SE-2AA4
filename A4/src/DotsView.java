@@ -9,6 +9,7 @@ package src;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class DotsView {
 
@@ -88,9 +89,9 @@ public class DotsView {
    * @brief Displays the Dots board layout and its elements
    * @param dots A given model of the Dots game
    */
-    public void renderDots(Dots dots) {
+    public void renderDots(ArrayList<ArrayList<ColourT>> board) {
         System.out.println();
-        int n = dots.matrix().size();
+        int n = board.size();
         
         System.out.print("   "); 
         for(int i = 0; i < n; i++)
@@ -100,14 +101,14 @@ public class DotsView {
         for (int i = 0; i < n; i++) {
             System.out.print(i + "  ");
             for (int j = 0; j < n; j++) {
-                System.out.print(dots.matrix().get(i).get(j).name() + " ");
+                System.out.print(board.get(i).get(j).name() + " ");
             }
             System.out.println();
         }
     }
 
      /**
-   * @brief Receives the console input from the user
+   * @brief Receives the console Stinput from the user
    * @return The console input entered by the user
    */
     public String getInput() {

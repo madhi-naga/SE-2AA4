@@ -88,7 +88,7 @@ public class DotsController {
         int score = 0;
         while (true) {
             view.displayScore(score);
-            view.renderDots(model);
+            view.renderDots(model.matrix());
             view.printEnterNewInput();
             String s = view.getInput();
 
@@ -139,7 +139,7 @@ public class DotsController {
             view.displayTarget(target);
             view.displayScore(score);
             view.displayMovesLeft(movesleft);
-            view.renderDots(model);
+            view.renderDots(model.matrix());
             view.printEnterNewInput();
             
             String s = view.getInput();
