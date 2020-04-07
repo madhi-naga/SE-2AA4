@@ -34,7 +34,7 @@ public class DotsController {
    * @param buffer The input given
    * @return A boolean based on if the given input is a valid sequence of coordinates
    */
-    public boolean isValidInput(String buffer) {
+    public boolean isValidInput(String buffer, int n) {
         input = buffer.split(",");
 
         if (input == null || input.length < 2){
@@ -44,7 +44,7 @@ public class DotsController {
         for (String s : input) {
             if (s.length() > 2)
                 return false;
-            if (Character.getNumericValue(s.charAt(0)) > 5 || Character.getNumericValue(s.charAt(1)) > 5)
+            if (Character.getNumericValue(s.charAt(0)) > n || Character.getNumericValue(s.charAt(1)) > n)
                 return false;
         }
         return true;
@@ -55,7 +55,7 @@ public class DotsController {
    * @param buffer The input givennah 
    * @return An array of the input given
    */
-    public String[] toArray(String buffer) {
+    private String[] toArray(String buffer) {
         return buffer.split(",");
     }
 
@@ -103,7 +103,7 @@ public class DotsController {
                 continue;
             }
 
-            if(this.isValidInput(s)){
+            if(this.isValidInput(s, model.n())){
                 String[] input = this.toArray(s);
                 if (model.isValidPath(input)){
                     model.processDots(input);
@@ -147,7 +147,7 @@ public class DotsController {
             if (s.equals(esc))
                 System.exit(0);
 
-            if(this.isValidInput(s)){
+            if(this.isValidInput(s, model.n())){
                 String[] input = this.toArray(s);
                 if (model.isValidPath(input)){
                     model.processDots(input);

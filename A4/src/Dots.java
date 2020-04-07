@@ -127,14 +127,14 @@ public class Dots {
    * @brief Modifies the matrix by moving down above elements to existing null spaces
    * in the matrix and fills rest of the elements (now null) with random colours 
    */
-    public void dropDots(){
+    private void dropDots(){
         int emp;
         for(int i = 0; i < this.n; i++){
             emp = this.n-1;
 
             for(int j = this.n-1; j >=0; j--){
                 if(this.getColour(j, i) != null){
-                    this.matrix.get(emp).set(i, this.getColour(j, i));
+                    this.setColour(emp, i, this.getColour(j, i));
                     if(emp != j) 
                         this.setColour(j, i, null);
                     emp--;
