@@ -36,8 +36,6 @@
 \newcommand{\todo}[1]{}
 \fi
 
-\newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
-
 \title{Assignment 4 Specification}
 \author{SFWR ENG 2AA4}
 
@@ -102,7 +100,7 @@ None
 
 getRandomColour():
 \begin{itemize}
-\item output: $out := $
+\item output: $out := $ a random type of ColourT
 \item exception: None
 \end{itemize}
 
@@ -147,7 +145,7 @@ setRandomColour & $\mathbb{Z}$, $\mathbb{Z}$ & ~ & ~\\
 \hline
 initializeDots & ~ & ~ & ~\\
 \hline
-isValidPath & Seq(string) & $\mathbb{B}$ & ~\\
+isValidPath & Seq(Seq($\mathbb{Z}$)) & $\mathbb{B}$ & InvalidInputException\\
 \hline
 dropDots & ~ & ~ & ~\\
 \hline
@@ -162,15 +160,18 @@ hasValidCombo & ~ & $\mathbb{B}$ & ~\\
 \subsubsection* {State Variables}
 
 $n$: $\mathbb{Z}$\\
-$matrix$: Seq of (Seq of ColourT)
+matrix: Seq of (Seq of ColourT)
 
 \subsubsection* {State Invariant}
 
 None
 
 \subsubsection* {Assumptions}
+The n state variable is to serve the purpose of being able to expand and/or shrink the board size and pieces. 
 
-...
+Another assumption that is made is that the isValidPath will produce an InvalidInputException.  In reality, an exception would stop the game in progress, thus the InvalidInputException is meant to only signify that the given input is invalid
+
+
 
 \subsubsection* {Access Routine Semantics}
 
@@ -183,13 +184,13 @@ Dots($\mbox{num}$):
 
 \noindent matrix():
 \begin{itemize}
-\item output: $out := \mbox{Seq of (Seq of ColourT)}$
+\item output: $out := \mbox{matrix}$
 \item exception: None
 \end{itemize}
 
 \noindent n():
 \begin{itemize}
-\item \wss{What should go here?}output: $out := n$
+\item output: $out := n$
 \item exception: None
 \end{itemize}
 
@@ -207,32 +208,26 @@ Dots($\mbox{num}$):
 
 \noindent addRandomColour($i$):
 \begin{itemize}
-\item transition: $\mbox{matrix}[i].append()$
+\item transition: $\mbox{matrix}[i][-1] :=  \mbox{ColourT.getRandomColour()}$  
 \item exception: None
 \end{itemize}
 
 \noindent setRandomColour($i$, $j$):
 \begin{itemize}
-\item transition: $\mbox{matrix}[i][j] := $
+\item transition: $\mbox{matrix}[i][j] := \mbox{ColourT.getRandomColour()}$
 \item exception: None
 \end{itemize}
 
 \noindent initializeDots():
 \begin{itemize}
-\item transition: $\forall i, j: \mbox{matrix}[i][j] := $
+\item transition: $\forall i, j: \mbox{matrix}[i][j] := \mbox{ColourT.getRandomColour()} $
 \item exception: None
 \end{itemize}
 
-\noindent isValidPath(input):
+\noindent isValidPath(in):
 \begin{itemize}
-\item out: $\forall i, j: \mbox{matrix}[i][j] := $
-\item exception: None
-\end{itemize}
-
-\noindent dropDots():
-\begin{itemize}
-\item transition: $\mbox{matrix}[i][j] := $
-\item exception: None
+\item out: $\forall i: \mbox{matrix}[\mbox{input}[i][0]] [\mbox{input}[i][1]] == \mbox{matrix}[\mbox{input}[i+1][0]] [\mbox{input}[i+1][1]] $
+\item exception: $exc := (\exists i: (|\:\mbox{input}[i][0] - \mbox{input}[i+1][0]\:| > 1) \lor (|\:\mbox{input}[i][1] - \\ \mbox{input}[i+1][1] \:| > 1)) \implies \mbox{InvalidInputException}$
 \end{itemize}
 
 \noindent processDots():
@@ -241,11 +236,14 @@ Dots($\mbox{num}$):
 \item exception: None
 \end{itemize}
 
-\noindent hasValidPath():
+\noindent hasValidCombo():
 \begin{itemize}
-\item out: $\mbox{matrix}[i][j] := $
+\item out: $\exists i, j: (\mbox{matrix}[i][j] == \mbox{matrix}[i][j+1] \lor \mbox{matrix}[i][j] == \mbox{matrix}[i+1][j]) $
 \item exception: None
 \end{itemize}
+\bigskip
+\subsection*{Local Functions}
+processDots(): Drops dots based on existing null cells in each column (of the matrix).
 
 \newpage
 
@@ -307,6 +305,7 @@ None
 Since most of the routines in the View are just displaying print statements, the routines are ignored in the Access Routine Semantics. The purpose of each View routine is listed below: 
 
 \begin{itemize}
+
 \item startMenu(): display the Game Menu message
 \item printEnterNewInput(): displays Enter New Input message
 \item displayScore(n): display Score of $n$ 
@@ -333,6 +332,16 @@ DotsController
 
 \subsection* {Syntax}
 
+\subsection* {Uses}
+
+N/A
+
+\subsubsection* {Exported Constants}
+None
+
+\subsubsection* {Exported Types}
+None
+
 \subsubsection* {Exported Access Programs}
 
 \begin{tabular}{| l | l | l | p{6cm} |}
@@ -341,7 +350,7 @@ DotsController
 \hline
 DotsController & Dots, DotsView & DotsController & \\
 \hline
-isValidInput & string & $\mathbb{B}$ & ~\\
+isValidInput & seq(string) & $\mathbb{B}$, $\mathbb{Z}$ & InvalidInputException\\
 \hline
 startGame & ~ & ~ & ~ \\
 \hline
@@ -353,49 +362,66 @@ targetMode & ~ & ~ & ~ \\
 
 \subsection* {Semantics}
 
+\subsubsection* {State Variables}
+view: DotsView\\
+model: Dots
+
+\subsubsection* {State Invariant}
+None
+
+\subsubsection* {Assumptions}
+One assumption that is made is that the isValidInput will produce an InvalidInputException. In reality, an exception would stop the game in progress, thus the InvalidInputException is meant to only signify that the given input is invalid.
+
+Since the Game routines mainly consist of calling other view/model routines, they will not be described in the Access Routine Semantics.
+
+
+\begin{itemize}
+\item startGame(): Initiates the Game Board and menu messages
+\item infiniteMode(): Game mode that tracks user's score 
+\item targetMode(): Game mode that challenges user to reach target score in a limited amount of moves
+\end{itemize}
+
 \subsubsection* {Access Routine Semantics}
 
-\noindent total():
+\noindent DotsController(dots, dotsview):
 \begin{itemize}
-\item output: \wss{Total of all the values in all of the cells.}$out := +(i, j: \mathbb{N}| \mbox{validRow}(i) \land
-  \mbox{validCol}(j)  : s[i][j] )$
+\item transition: view, model := dots, dotsview 
+\item out: $out := self$
 \item exception: None
 \end{itemize}
 
-\noindent max():
+\noindent isValidInput(input, n):
 \begin{itemize}
-\item output:   $out := s[mi][mj] \mbox{ such that } \forall (i, j: \mathbb{N}|
-  \mbox{validRow}(i) \land \mbox{validCol}(j) : s[i][j] \leq s[mi][mj])$
-\item exception: None
+\item output: $out := (|\mbox{input}| >= 2) \land (\forall i: |\mbox{input}[i]| == 2 \land (\mbox{input}[i][0] < n \land \\ \mbox{input}[i][1] < n))$
+\item exception: $exc := \lnot \mbox{(isValidInput(input,n))} \implies \mbox{InvalidInputException}$
 \end{itemize}
-
-\noindent ascendingRows():
-\begin{itemize}
-\item output: \wss{Returns True if the sum of all values in each row increases
-    as the row number increases, otherwise, returns False.}$out := \forall (i:
-  \mathbb{N}| 0 \leq i \leq \text{nRow} - 2 : +(j: \mathbb{N} |
-  \text{validCol}(j) : s[i+1][j]) > +(j: \mathbb{N} |
-  \text{validCol}(j) : s[i][j]))$
-\item exception: None
-\end{itemize}
-
-\subsection*{Local Functions}
-
-\noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \wss{returns true if the given natural number is a valid row
-  number.}$\mbox{validRow}(i) \equiv 0 \leq i \leq (\mbox{nRow} - 1)$\\
-
-\noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent $\mbox{validCol}(j) \equiv 0 \leq j \leq (\mbox{nCol} - 1)$\\
 
 \newpage
+
+\section*{Critique of the Design}
+The overall design of the MVC design pattern flows well with the design aspect of a game, as it enables information hiding for the Dots Model and DotsView from DotsController. DotsController does not have direct access in modifying the matrix and size of the board in the Dots Model. The design pattern also restricts modification of the messages displayed or the input received in DotsView. 
+
+High cohesion is also present with this specification, as the DotsController is highly dependent on the behaviour of its model and view. The DotsController is the module that controls the logic of the Dots Model and the action of the DotsView. 
+
+In addition, miminality was taken into account for this specification. For all modules, its access routines either does a State Transition or an Output, but never both. 
+
+Generality is one area that is lacking in this specification, as there are no generic modules or interfaces implemented. While it's not a key design aspect for this project, generality can be improved by creating a generic module for the Dots Model. The model can accept any type (T) for it's 2D array matrix. We can further create a subclass/sub-model of the generic Dots class to implement it for ColourT types. 
+
+Finally, consistency is used throughout this specification, ensuring uniform naming conventions and exception handling etc. 
+
 
 \section*{Answer to Design Questions}
 
 \begin{enumerate}
-\item The 
+\item While all of the UML diagrams for these design patterns are very similar, they all have their own intended uses when utilizing them in Software projects. 
 
-\item Although 
+The purpose of the Proxy pattern is to have an interface as a means for a client to access an object, class etc. through that interface. However, this prevents the client from directly accessing that object/class.
+
+The Adapter pattern is a pattern that connects two otherwise incompatible interfaces together by wrapping an existing class with the target interface. That way, the client gains functionality between both interfaces. This differs from the proxy because an Adapter provides access to another interface, while proxy provides access to the only interface created. 
+
+The Strategy pattern is when we develop an interface that handles multiple implementations, enabling abstraction. The defining factor of the Strategy pattern is that the class behaviour (or implementation) can be selected/changed at runtime. The Strategy pattern is quite different compared to the other two, due to the runtime feature and that the interface deals with multiple implementations. 
+
+\item Control Flow Diagram:
  
 \end{enumerate}
 
