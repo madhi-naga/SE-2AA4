@@ -634,6 +634,7 @@ Note: IAE represents IllegalArgumentException\\
 \medskip
 
 \wss{Explain below why other tests were left out.}\\
+Some test cases were left out simply because most of these test cases covered the typical and edge coverage cases. Furthermore, the code implemented is fairly simple, thus stress testing is not as crucial. Further test cases could have been done to test large arrays, and repetitive arrays. Again not important to this program because it is a simple program and function.
 
 \end{minipage}
 
@@ -672,7 +673,9 @@ Note: IAE represents IllegalArgumentException\\
 \item Since Seq1D extends from the Comparable interface, StudentT would also need to extend from the Comparable interface. It would also need an override compareTo function, as to compare the StudentT’s with each other. This can be done by comparing Student Numbers/IDs or Student Names etc. Other than that, there is no need to modify any of the existing files. \wss{Your answer here.}
 
 
-\item \wss{Revise the following portions of the syntax section of the
+\item For functional programming, the setTieHandler should return a new Seq1D, in order to ensure that Seq1D is immutable. 
+
+\wss{Revise the following portions of the syntax section of the
     functional programming version of Seq1D.  The spec given is for the OO
     version.  You can make any changes you feel are necessary. }  
 
@@ -684,7 +687,7 @@ Note: IAE represents IllegalArgumentException\\
 \hline
 new Seq1D & seq of T, TieHandler & Seq1D & \\
 \hline
-setTieHandler & TieHandler &  & \\
+setTieHandler & TieHandler & Seq1D & \\
 \hline
 rank & T & $\mathbb{R}$ & IllegalArgumentException\\
 \hline
