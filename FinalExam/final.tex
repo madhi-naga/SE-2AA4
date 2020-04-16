@@ -59,9 +59,9 @@ MCMASTER UNIVERSITY FINAL EXAMINATION \hfill April 16, 2020
 
 %\begin{minipage}[t]{1.0\textwidth}
 
-NAME: \wss{Enter your name here}\\[1ex]
+NAME: Madhi Nagarajan\\[1ex]
 
-Student ID: \wss{Enter your student number here} \\[2mm]
+Student ID: 400190702 \\[2mm]
 
 \noindent
 \rule[3 mm]{\textwidth}{0.5mm}
@@ -346,8 +346,8 @@ None
 
 rCalc($s$)
 \begin{itemize}
-\item output: \wss{The minimum element in s, where s is a sequence of natural
-    numbers}
+\item output: $out :=  s[j]$ such that $\forall(i: \mathbb{N} | s[i] \ge s[j])$
+ \wss{The minimum element in s, where s is a sequence of natural numbers}
 \item exception: none
 \end{itemize}
 
@@ -403,7 +403,7 @@ None
 
 rCalc($s$)
 \begin{itemize}
-\item output: \wss{The maximum element in s, where s is a sequence of natural
+\item output: $out :=  s[j]$ such that $\forall(i: \mathbb{N} | s[i] \le s[j])$ \wss{The maximum element in s, where s is a sequence of natural
     numbers}
 \item exception: none
 \end{itemize}
@@ -426,6 +426,7 @@ Comparable, TieHandler
 
 \subsubsection* {Exported Types}
 
+Seq1D(T) = ?
 \wss{What goes here?}
 
 \subsubsection* {Exported Constants}
@@ -468,12 +469,13 @@ called once.
 
 \subsubsection* {Access Routine Semantics}
 
-new Seq1D($S$):
+new Seq1D($S$, $t$):
 \begin{itemize}
-\item transition: $s := S$
+\item transition: $s, \mbox{tieHandler} := S, t$
 \item output: $\mathit{out} := \mathit{self}$
 \item exception: none
 \end{itemize}
+Note: This was edited due to the spec error (added in \mbox{tieHandler}), as notified by Dr. Smith.
 
 \noindent setTieHandler($t$):
 \begin{itemize}
@@ -483,9 +485,9 @@ new Seq1D($S$):
 
 \noindent rank($p$):
 \begin{itemize}
-\item output: \wss{Calculate the rank of $p$ in the sequence, taking into
+\item output: $out :=$ \mbox{tieHandler}.rCalc(toSeq(indexSet(p, (sort(s)))) \wss{Calculate the rank of $p$ in the sequence, taking into
     account if there are ties}
-\item exception: \wss{A $p$ value is illegal if it does not appear in the
+\item exception: $\mbox{count}(p,s) = 0 \implies \mbox{IllegalArgumentException}$\wss{A $p$ value is illegal if it does not appear in the
     sequence}
 \end{itemize}
 
