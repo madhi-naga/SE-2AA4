@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Seq1D<T extends Comparable>{
+public class Seq1D<T extends Comparable<T>>{
 
     TieHandler tieHandler;
     ArrayList<T> s;
@@ -37,8 +37,11 @@ public class Seq1D<T extends Comparable>{
     }
 
     private ArrayList<T> sort(ArrayList<T> A){
-        Collections.sort(A);
-        return A;
+        ArrayList<T> A2 = new ArrayList<T>();
+        for(int i = 0; i < A.size(); i++)
+            A2.add(A.get(i));
+        Collections.sort(A2);
+        return A2;
     }
 
     private int count(T a, ArrayList<T> A){
