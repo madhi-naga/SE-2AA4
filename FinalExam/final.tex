@@ -134,18 +134,19 @@ efficiency, and c) maintainability.\\
 \begin{enumerate}[a)]
 \item Reliability
 \begin{itemize}
-\item Positive or negative?
-\item Explanation
+\item Positive 
+\item Reliability is often improved with reusability, if we reuse previous reliable code/features from old software and incorporate it into our new software. If that code is reusable, then this almost guarantees that the incorporation of previous improves the reliability of new software without having to spend extra time and resources.
+
 \end{itemize}
 \item Efficiency
 \begin{itemize}
-\item Positive or negative?
-\item Explanation
+\item Negative
+\item Efficiency will not be improved with reusability, as software needs to be general if we want it to be reusable. However with more efficient software, it needs to be specific because it would take both less memory and better performance to run. Thus, efficiency and reusability are contradictory and are not related.
 \end{itemize}
 \item Maintainability
 \begin{itemize}
-\item Positive or negative?
-\item Explanation
+\item Positive
+\item Maintainability will definately be improved positively with reusability. Reusable code will often be both abstract and fully documented, thus existing code can be improved on in further implementations. Code can even be maintained if we plan on implementing it in different systems.
 \end{itemize}
 \end{enumerate}
 
@@ -161,9 +162,11 @@ answer.\\
 \noindent \wss{Fill in the itemized list below with your answers}
 
 \begin{itemize}
-\item Software Engineering Principle 1 - explanation
-\item Software Engineering Principle 2 - explanation
-\item ...
+\item Modularity: Both the USB and HDD are modular because they both have separate tasks/modules to read data, write to data, and delete data. 
+\item Generality: The USB and HDD use generality with both having the ability to read and write data. Since they are both modular, they can both be utilized together to complete more complex tasks (eg. copying data uses read data and write data modules). 
+\item Anticipation of Change: Both USB and HDD are constantly changing, as they add new data and delete old data etc. Since they anticipate change, they are designed such that they have enough storage memory and can perform their tasks/modules (reading/writing data) efficiently.
+\item Portability: Both the USB and HDD have portability in mind (HDD is a little lacking on it). While this is more so a quality, its worth mentioning because USBs and HDDs encompass it well. They are made such that they can perform their modules/tasks anywhere (eg. different laptops, PCs, devices).
+
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -185,9 +188,11 @@ under 5\%, then set variable top\_up\_req to True.''
 \noindent \wss{Fill in the itemized list below with your answers}
 
 \begin{itemize}
-\item Criterion 1 - explanation
-\item Criterion 2 - explanation
-\item ...
+\item Abstract: The statement lacks being abstract because it tells the exact details of the implementation (set top\_up\_req true if water level is under 5\%).
+\item Consistent: The statement is also not consistent because the statement uses multiple names for water level (also used fluid level). 
+\item Unambiguous: The statement provided is very ambiguous, as it does not provide the units of measurement.
+\item Verifiability: Since the statement is ambiguous, it is also not verifiable, as it makes it difficult to verify if the spec is correct. Since there are no units, it's difficult to determine to quantify water levels and whether top\_up\_req is correct.
+
 \end{itemize}
 
 \end{minipage}
@@ -611,19 +616,19 @@ fine.  The stub for \texttt{TestSeq1D.java}, and associated Makefile, are alread
 your repo.\\
 
 \wss{Fill in this table.}\\
-
+Note: IAE represents IllegalArgumentException\\
 \begin{tabular}{ p{0.75cm}  l  l  l  l p{9cm} }
   \toprule
   \textbf{\#} & \textbf{s} & \textbf{tie} & \textbf{p} & \textbf{Expected} & \textbf{Explanation}\\
   \midrule
-  1 & ? & ? & ? & ? & ?\\
-  2 & ? & ? & ? & ? & ?\\
-  3 & ? & ? & ? & ? & ?\\
-  4 & ? & ? & ? & ? & ?\\
-  5 & ? & ? & ? & ? & ?\\
-  6 & ? & ? & ? & ? & ?\\
-  7 & ? & ? & ? & ? & ?\\
-  8 & ? & ? & ? & ? & ?\\
+  1 & \{3,5,5,6,8,9\} & min & 5 & 1 & Tests a typical, sorted sequence with a multiple occurence input\\
+  2 & \{3,5,5,6,8,9\} & max & 5 & 2 & Tests a typical, sorted sequence with a multiple occurence input\\
+  3 & \{3,5,5,6,8,9\} & min & 9 & 5 & Tests a typical, sorted sequence with one occurence input\\
+  4 & \{3,5,5,6,8,9\} & max & 9 & 5 & Tests a typical, sorted sequence with one occurence input \\
+  5 & \{1,1,1,2,0,1,1\} & min & 1 & 1 & Tests a random, unsorted sequence\\
+  6 & \{1,1,1,2,0,1,1\} & max & 1 & 5 & Tests a random, unsorted sequence\\
+  7 & \{3,5,5,6,8,9\} & min & 10 & IAE & Tests whether an exception is raised with an input that does not occur in the sequence\\
+  8 & \{3,5,5,6,8,9\} & max & 10 & IAE & Tests whether an exception is raised with an input that does not occur in the sequence\\
   \bottomrule
 \end{tabular}\\
 \medskip
@@ -662,8 +667,11 @@ your repo.\\
 \noindent{Fill in the itemized list below}
 
 \begin{enumerate}[a.]
-\item \wss{Your answer here.} 
-\item \wss{Your answer here.}
+\item Rather than producing both the MinCalc and MaxCalc classes and the TieHandler interface, TieHandler can be produced into a new class instead. In TieHandler, rCalc would be a routine that averages the given sequence of natural numbers. \wss{Your answer here.} 
+
+\item Since Seq1D extends from the Comparable interface, StudentT would also need to extend from the Comparable interface. It would also need an override compareTo function, as to compare the StudentT’s with each other. This can be done by comparing Student Numbers/IDs or Student Names etc. Other than that, there is no need to modify any of the existing files. \wss{Your answer here.}
+
+
 \item \wss{Revise the following portions of the syntax section of the
     functional programming version of Seq1D.  The spec given is for the OO
     version.  You can make any changes you feel are necessary. }  
